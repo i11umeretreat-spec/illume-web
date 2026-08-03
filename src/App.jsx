@@ -645,7 +645,7 @@ function Hero({onStart,isMobile}){
             transition:"color 250ms ease",
             marginBottom:6,
           }}>
-            Курирование и легалити
+            Курирование и документы
           </div>
           <div style={{
             fontFamily:"'Inter',sans-serif",fontWeight:300,
@@ -1360,7 +1360,7 @@ function Scanner({phase,setPhase,answers,setAnswers,isMobile}){
                       <span style={{
                         fontFamily:"'Space Grotesk',sans-serif",fontSize:8,letterSpacing:".12em",
                         color:resultSt.color,textTransform:"uppercase",fontWeight:500,
-                      }}>Личная забота · Tier 1</span>
+                      }}>Рекомендуемый протокол</span>
                     </div>
                     <div style={{
                       fontFamily:"'Space Grotesk',sans-serif",fontWeight:600,fontSize:13,
@@ -1376,7 +1376,7 @@ function Scanner({phase,setPhase,answers,setAnswers,isMobile}){
                     </div>
                     <a
                       href={`https://wa.me/6281339630129?text=${encodeURIComponent(
-                        `Здравствуйте! Организую ретрит на Бали.\n\nПрошёл диагностику i11ume: ${resultSt.code} — ${resultSt.name}.\nХочу обсудить личную заботу (Tier 1) на время моего ретрита.`
+                        `Здравствуйте! Организую ретрит на Бали.\n\nПрошёл диагностику i11ume: ${resultSt.code} — ${resultSt.name}.\nРекомендация: ${resultSt.synergy} — ${resultSt.bali}\nХочу обсудить это.`
                       )}`}
                       target="_blank" rel="noreferrer"
                       style={{
@@ -1571,6 +1571,8 @@ const TIERS = [
       {text:"Виллы и площадки из нашей базы", group:null},
       {text:"Проверенный персонал — повара, водители, помощники", group:null},
       {text:"Команда, которая работает на английском", group:null},
+      {text:"Учитываем балийский календарь — не ставим сессии на закрытые для церемоний дни", group:null},
+      {text:"Терапевты и психологи под задачу, если нужно усиление", group:null},
       {text:"Всё что входит в Tier 1", group:null},
     ],
     accent:C.cy,
