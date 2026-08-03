@@ -618,12 +618,12 @@ function Hero({onStart,isMobile}){
         {/* Диагноз — их реальность */}
         <div style={{...anim(0),marginBottom:isMobile?28:36}}>
           <div style={{
-            fontFamily:"'Fraunces',serif",fontWeight:600,fontStyle:"normal",
+            fontFamily:"'Fraunces',serif",fontWeight:400,fontStyle:"normal",
             fontSize:isMobile?"clamp(32px,8.4vw,46px)":"clamp(42px,4.4vw,66px)",
             letterSpacing:"-0.02em",color:C.t,lineHeight:1.06,
           }}>
             Пока вы ведёте группу —<br/>
-            <span style={{color:C.p}}>мы заботимся о вас.</span>
+            <span style={{color:C.p}}>мы заботимся о вас</span>
           </div>
         </div>
 
@@ -1618,9 +1618,14 @@ function Tiers({isMobile}){
 
   return(
     <section ref={ref} style={{
-      padding:isMobile?"72px 20px 80px":"100px 56px 120px",
-      borderTop:`1px solid ${C.gold}14`,
+      position:"relative",
+      padding:isMobile?"96px 20px 80px":"140px 56px 120px",
       boxSizing:"border-box",
+      background:C.surf,
+      clipPath:isMobile
+        ?"polygon(0 40px, 100% 0, 100% 100%, 0 100%)"
+        :"polygon(0 90px, 100% 0, 100% 100%, 0 100%)",
+      marginTop:isMobile?"-40px":"-90px",
     }}>
       <div style={{
         opacity:mounted?1:0,
@@ -1658,46 +1663,53 @@ function Tiers({isMobile}){
       }}>
         {TIERS.map((t,i)=>{
           const hov = hovT===i;
+          // Асимметричный въезд: слева / снизу-крупнее / справа
+          const fromX = i===0?-36:i===2?36:0;
+          const fromY = i===1?34:14;
+          const delay = i===0?0:i===1?160:80;
+          const dur = i===1?900:760;
           return(
             <div key={i}
               onMouseEnter={()=>setHovT(i)}
               onMouseLeave={()=>setHovT(null)}
               style={{
                 opacity:mounted?1:0,
-                transform:mounted?"translateY(0)":"translateY(28px)",
-                transition:`opacity 800ms ${EASE} ${i*120}ms, transform 800ms ${EASE} ${i*120}ms, border-color 300ms ease`,
-                border:`1px solid ${hov?t.accent+"66":C.dim+"26"}`,
-                borderRadius:20,
+                transform:mounted
+                  ?"translate(0,0)"
+                  :`translate(${fromX}px,${fromY}px)`,
+                transition:`opacity ${dur}ms ${EASE} ${delay}ms, transform ${dur}ms ${EASE} ${delay}ms, border-color 300ms ease, background 300ms ease`,
+                position:"relative",
+                borderTop:`1px solid ${hov?t.accent+"77":C.dim+"22"}`,
+                borderRight:`1px solid ${hov?t.accent+"77":C.dim+"22"}`,
+                borderBottom:`1px solid ${hov?t.accent+"77":C.dim+"22"}`,
+                borderLeft:`2px solid ${t.accent}${hov?"CC":"55"}`,
+                borderRadius:"4px 20px 20px 4px",
                 padding:isMobile?"24px 22px":"28px 26px",
                 background:hov?`${t.accent}0A`:`${C.surf}66`,
+                overflow:"hidden",
               }}
             >
               <div style={{
                 display:"flex",justifyContent:"space-between",alignItems:"flex-start",
-                marginBottom:20,
+                marginBottom:18,
               }}>
-                <span style={{
-                  fontFamily:"'Fraunces',serif",fontWeight:400,fontStyle:"italic",
-                  fontSize:28,color:t.accent+"88",
+                <div style={{
+                  fontFamily:"'Fraunces',serif",fontWeight:500,fontSize:20,
+                  color:C.t,
                 }}>
-                  {t.n}
-                </span>
+                  {t.name}
+                </div>
                 <span style={{
                   fontFamily:"'Space Grotesk',sans-serif",fontSize:8,
-                  letterSpacing:"0.16em",color:C.dim,textTransform:"uppercase",
+                  letterSpacing:"0.14em",color:C.dim,textTransform:"uppercase",
                   border:`1px solid ${C.dim}33`,borderRadius:100,
-                  padding:"3px 9px",textAlign:"right",
+                  padding:"3px 9px",textAlign:"right",whiteSpace:"nowrap",
+                  flexShrink:0,marginLeft:10,
                 }}>
                   {t.tag}
                 </span>
               </div>
 
-              <div style={{
-                fontFamily:"'Fraunces',serif",fontWeight:500,fontSize:20,
-                color:C.t,marginBottom:8,
-              }}>
-                {t.name}
-              </div>
               <div style={{
                 fontFamily:"'Space Grotesk',sans-serif",fontSize:13,
                 color:t.accent,marginBottom:14,
