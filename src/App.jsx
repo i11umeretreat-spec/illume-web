@@ -46,6 +46,8 @@ const FONTS =
 const KEYS = `
   @keyframes qFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   @keyframes rFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes breatheArcL{0%,100%{opacity:.22;stroke-width:1.1}50%{opacity:.5;stroke-width:1.6}}
+  @keyframes breatheArcR{0%,100%{opacity:.16;stroke-width:1}50%{opacity:.4;stroke-width:1.4}}
 `;
 
 /* ═══ ХУКИ ══════════════════════════════════════════════ */
@@ -569,14 +571,27 @@ function Hero({onStart,isMobile}){
       }}>
 
         {/* Диагноз — их реальность */}
-        <div style={{...anim(0),marginBottom:isMobile?28:36}}>
+        <div style={{marginBottom:isMobile?28:36,position:"relative"}}>
+          <svg viewBox="0 0 100 60" preserveAspectRatio="none" style={{
+            position:"absolute",
+            top:"-16%",left:"-10%",width:"120%",height:"132%",
+            pointerEvents:"none",zIndex:0,overflow:"visible",
+          }}>
+            <path d="M2,6 A64,64 0 0 1 2,54" fill="none" stroke={C.terra}
+              strokeWidth="1.1" strokeLinecap="round" vectorEffect="non-scaling-stroke"
+              style={{animation:"breatheArcL 5600ms ease-in-out infinite"}}/>
+            <path d="M98,6 A64,64 0 0 0 98,54" fill="none" stroke={C.cy}
+              strokeWidth="1" strokeLinecap="round" vectorEffect="non-scaling-stroke"
+              style={{animation:"breatheArcR 5600ms ease-in-out infinite 1800ms"}}/>
+          </svg>
           <div style={{
             fontFamily:"'Fraunces',serif",fontWeight:400,fontStyle:"normal",
             fontSize:isMobile?"clamp(32px,8.4vw,46px)":"clamp(42px,4.4vw,66px)",
-            letterSpacing:"-0.02em",color:C.t,lineHeight:1.06,
+            letterSpacing:"-0.02em",lineHeight:1.06,
+            position:"relative",zIndex:1,
           }}>
-            Пока вы ведёте группу —<br/>
-            <span style={{color:C.terra}}>мы заботимся о вас</span>
+            <div style={{...anim(0),color:C.t}}>Пока вы ведёте группу</div>
+            <div style={{...anim(340),color:C.terra}}>мы заботимся о вас</div>
           </div>
         </div>
 
