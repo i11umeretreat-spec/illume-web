@@ -28,7 +28,8 @@ async function submitWaitlist({name, contact, stateCode, trackName}){
 
 const C = {
   bg:"#0A1420", surf:"#0E1A2A",        // глубокий тёплый navy
-  p:"#FF6B4A",                          // коралл — главный голос интерфейса
+  p:"#FF6B4A",                          // коралл — UI-акценты: кнопки, лейблы, бейджи (мелкий текст)
+  terra:"#B5583A",                      // терракота — приглушённая версия для крупного текста (заголовки)
   cy:"#3DBFA8",                         // приглушённый тил — голос сферы (cold)
   s:"#7B4FE8", a:"#FF6B4A",
   t:"#EAE2D6",                          // тёплый кремовый текст
@@ -575,7 +576,7 @@ function Hero({onStart,isMobile}){
             letterSpacing:"-0.02em",color:C.t,lineHeight:1.06,
           }}>
             Пока вы ведёте группу —<br/>
-            <span style={{color:C.p}}>мы заботимся о вас</span>
+            <span style={{color:C.terra}}>мы заботимся о вас</span>
           </div>
         </div>
 
