@@ -1551,10 +1551,13 @@ const TIERS = [
     price:"от $400",
     desc:"Наш сигнатурный слой. Работает даже если всё остальное вы решаете сами.",
     items:[
-      "Встреча в аэропорту",
-      "Баня и массаж по приезду",
-      "Личный протокол между вашими сессиями с группой",
-      "Легалити лично для вас, если нужно",
+      {text:"Встреча в аэропорту", group:"До"},
+      {text:"Баня и массаж", group:"До"},
+      {text:"Сакральная церемония", group:"До"},
+      {text:"Сакральная церемония", group:"После"},
+      {text:"Баня и массаж", group:"После"},
+      {text:"Договор и приём оплаты через PT RAJA", group:null},
+      {text:"Консультация по статусу пребывания", group:null},
     ],
     accent:C.p,
   },
@@ -1565,9 +1568,10 @@ const TIERS = [
     price:"от $1200",
     desc:"Проверенная сеть вместо поиска вслепую. Бронируете сами — с нашими контактами и рекомендациями.",
     items:[
-      "Виллы и площадки из нашей базы",
-      "Проверенный персонал — повара, водители, помощники",
-      "Всё что входит в Tier 1",
+      {text:"Виллы и площадки из нашей базы", group:null},
+      {text:"Проверенный персонал — повара, водители, помощники", group:null},
+      {text:"Команда, которая работает на английском", group:null},
+      {text:"Всё что входит в Tier 1", group:null},
     ],
     accent:C.cy,
   },
@@ -1578,9 +1582,9 @@ const TIERS = [
     price:"по запросу",
     desc:"Операционная часть группы — на нас. Чёткие границы ответственности, прозрачный бюджет.",
     items:[
-      "Полная логистика группы",
-      "Координация на месте весь ретрит",
-      "Всё что входит в Tier 1 и 2",
+      {text:"Полная логистика группы", group:null},
+      {text:"Координация на месте весь заезд", group:null},
+      {text:"Всё что входит в Tier 1 и 2", group:null},
     ],
     accent:C.gold,
   },
@@ -1707,21 +1711,35 @@ function Tiers({isMobile}){
               </p>
 
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                {t.items.map((item,j)=>(
-                  <div key={j} style={{
-                    display:"flex",alignItems:"flex-start",gap:8,
-                  }}>
-                    <span style={{
-                      color:t.accent,fontSize:11,marginTop:2,flexShrink:0,
-                    }}>—</span>
-                    <span style={{
-                      fontFamily:"'Inter',sans-serif",fontWeight:300,fontSize:12,
-                      color:C.body,lineHeight:1.5,
-                    }}>
-                      {item}
-                    </span>
-                  </div>
-                ))}
+                {t.items.map((item,j)=>{
+                  const prevGroup = j>0 ? t.items[j-1].group : undefined;
+                  const showGroup = item.group && item.group!==prevGroup;
+                  return(
+                    <div key={j}>
+                      {showGroup && (
+                        <div style={{
+                          fontFamily:"'Space Grotesk',sans-serif",fontSize:8,
+                          letterSpacing:"0.18em",color:t.accent,
+                          textTransform:"uppercase",marginBottom:6,
+                          marginTop:j===0?0:4,
+                        }}>
+                          {item.group}
+                        </div>
+                      )}
+                      <div style={{display:"flex",alignItems:"flex-start",gap:8}}>
+                        <span style={{
+                          color:t.accent,fontSize:11,marginTop:2,flexShrink:0,
+                        }}>—</span>
+                        <span style={{
+                          fontFamily:"'Inter',sans-serif",fontWeight:300,fontSize:12,
+                          color:C.body,lineHeight:1.5,
+                        }}>
+                          {item.text}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );
