@@ -1556,8 +1556,8 @@ const TIERS = [
       {text:"Сакральная церемония", group:"До"},
       {text:"Сакральная церемония", group:"После"},
       {text:"Баня и массаж", group:"После"},
-      {text:"Договор и приём оплаты через PT RAJA", group:null},
-      {text:"Консультация по статусу пребывания", group:null},
+      {text:"Трансфер в аэропорт", group:"После"},
+      {text:"Консультация по статусу пребывания", group:"Отдельно"},
     ],
     accent:C.p,
   },
@@ -1771,6 +1771,15 @@ function Tiers({isMobile}){
         }}>
           Ответим в течение дня
         </span>
+      </div>
+      <div style={{
+        opacity:mounted?1:0,
+        transition:`opacity 1000ms ${EASE} 650ms`,
+        marginTop:14,
+        fontFamily:"'Space Grotesk',sans-serif",fontSize:10.5,
+        letterSpacing:"0.05em",color:C.dim+"99",
+      }}>
+        На любом уровне — договор и приём оплаты через юридическое лицо PT RAJA
       </div>
     </section>
   );
