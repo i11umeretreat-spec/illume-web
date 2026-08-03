@@ -520,21 +520,20 @@ function Hero({onStart,isMobile}){
   const [painIdx,setPainIdx]  = useState(0);
   const [painVis,setPainVis]  = useState(true);
 
+  // Реальность фасилитатора — не пользователя. Ротируются рядом со сферой.
   const PAINS = [
-    "Голова не отключается.",
-    "Своим мыслям нет места.",
-    "Отдыхаете. Всё равно устаёте.",
-    "Всё есть. Что-то не включается.",
+    "Первым встаёте. Последним ложитесь.",
+    "На своём же ретрите вы — на работе.",
+    "Группе дали всё. Себе — ничего.",
+    "Кто-то держит поле. Вас никто не держит.",
   ];
 
-  // double-RAF mount
   useEffect(()=>{
     let r1,r2;
     r1=requestAnimationFrame(()=>{r2=requestAnimationFrame(()=>setMounted(true));});
     return()=>{cancelAnimationFrame(r1);cancelAnimationFrame(r2);};
   },[]);
 
-  // акты: 3 за ~3.2s
   useEffect(()=>{
     if(!mounted) return;
     const t=[
@@ -545,14 +544,12 @@ function Hero({onStart,isMobile}){
     return()=>t.forEach(clearTimeout);
   },[mounted]);
 
-  // tags появляются с паузой после act 3 — P1
   useEffect(()=>{
     if(act<3) return;
     const t=setTimeout(()=>setTagsVis(true), 900);
     return()=>clearTimeout(t);
   },[act]);
 
-  // ротация боль-фраз
   useEffect(()=>{
     if(act<3) return;
     const iv=setInterval(()=>{
@@ -562,7 +559,6 @@ function Hero({onStart,isMobile}){
     return()=>clearInterval(iv);
   },[act]);
 
-  // scroll fade
   useEffect(()=>{
     let raf=null;
     const h=()=>{if(raf)return;raf=requestAnimationFrame(()=>{setScrollY(window.scrollY);raf=null;});};
@@ -577,7 +573,6 @@ function Hero({onStart,isMobile}){
     transition:`opacity 900ms ${EASE} ${delay}ms, transform 900ms ${EASE} ${delay}ms`,
   });
 
-  // статичные слои стихий (без layerOp — P2 hover идёт через текст)
   const elLayer=(vis,grad,extra={})=>({
     position:"absolute",inset:0,pointerEvents:"none",
     opacity:vis?1:0,
@@ -596,7 +591,7 @@ function Hero({onStart,isMobile}){
       boxSizing:"border-box",
     }}>
 
-      {/* ═══ СТИХИИ: 3 слоя слева + 1 справа для баланса ═══ */}
+      {/* ═══ СТИХИИ ═══ */}
       <div style={elLayer(act>=1,
         `radial-gradient(ellipse 80% 60% at 20% 100%, ${C.p}20 0%, ${C.gold}0E 30%, transparent 65%)`
       )}/>
@@ -607,7 +602,6 @@ function Hero({onStart,isMobile}){
         `radial-gradient(ellipse 90% 70% at 30% 75%, ${C.gold}16 0%, ${C.p}0C 35%, transparent 60%)`,
         {transition:`opacity 2200ms ${EASE}`}
       )}/>
-      {/* правый glow вокруг сферы — P1 */}
       <div style={elLayer(act>=1,
         `radial-gradient(circle at 78% 52%, ${C.cy}0E 0%, ${C.cy}00 38%, transparent 55%)`,
         {transition:`opacity 2400ms ${EASE}`}
@@ -616,23 +610,24 @@ function Hero({onStart,isMobile}){
       {/* ═══ ЛЕВАЯ КОЛОННА ═══ */}
       <div style={{
         position:"relative",zIndex:2,
-        order:1, // текст ВСЕГДА первый — P0
+        order:1,
         opacity:1-heroProgress*0.5,
         transition:`opacity 600ms ${EASE}`,
       }}>
 
-        {/* НАСТРАИВАЕМ */}
+        {/* Диагноз — их реальность */}
         <div style={{...anim(0),marginBottom:isMobile?28:36}}>
           <div style={{
             fontFamily:"'Fraunces',serif",fontWeight:600,fontStyle:"normal",
-            fontSize:isMobile?"clamp(40px,10.5vw,60px)":"clamp(54px,5.6vw,84px)",
-            letterSpacing:"-0.025em",color:C.t,lineHeight:0.96,
+            fontSize:isMobile?"clamp(32px,8.4vw,46px)":"clamp(42px,4.4vw,66px)",
+            letterSpacing:"-0.02em",color:C.t,lineHeight:1.06,
           }}>
-            Настраиваем
+            Пока вы ведёте группу —<br/>
+            <span style={{color:C.p}}>мы заботимся о вас.</span>
           </div>
         </div>
 
-        {/* ТЕЛО — hover меняет цвет текста P1 */}
+        {/* Встреча — hover меняет цвет P1 */}
         <div
           onMouseEnter={()=>setHovAct(1)}
           onMouseLeave={()=>setHovAct(null)}
@@ -645,13 +640,13 @@ function Hero({onStart,isMobile}){
         >
           <div style={{
             fontFamily:"'Fraunces',serif",fontWeight:400,
-            fontSize:isMobile?"clamp(22px,5.5vw,30px)":"clamp(27px,2.6vw,37px)",
+            fontSize:isMobile?"clamp(20px,5vw,26px)":"clamp(23px,2.2vw,31px)",
             letterSpacing:"-0.005em",
             color:hovAct===1?C.t:C.dim,
             transition:"color 250ms ease",
             marginBottom:6,
           }}>
-            Тело
+            Личная забота
           </div>
           <div style={{
             fontFamily:"'Inter',sans-serif",fontWeight:300,
@@ -659,11 +654,11 @@ function Hero({onStart,isMobile}){
             color:hovAct===1?C.dim:C.dim+"66",
             transition:"color 250ms ease",
           }}>
-            массаж · баня · прогулки
+            встреча в аэропорту · баня и массаж по приезду · протокол на время ретрита
           </div>
         </div>
 
-        {/* СОЗНАНИЕ — hover меняет цвет текста P1 */}
+        {/* Курирование — hover меняет цвет P1 */}
         <div
           onMouseEnter={()=>setHovAct(2)}
           onMouseLeave={()=>setHovAct(null)}
@@ -676,13 +671,13 @@ function Hero({onStart,isMobile}){
         >
           <div style={{
             fontFamily:"'Fraunces',serif",fontWeight:400,
-            fontSize:isMobile?"clamp(22px,5.5vw,30px)":"clamp(27px,2.6vw,37px)",
+            fontSize:isMobile?"clamp(20px,5vw,26px)":"clamp(23px,2.2vw,31px)",
             letterSpacing:"-0.005em",
             color:hovAct===2?C.t:C.dim,
             transition:"color 250ms ease",
             marginBottom:6,
           }}>
-            Сознание
+            Курирование и легалити
           </div>
           <div style={{
             fontFamily:"'Inter',sans-serif",fontWeight:300,
@@ -690,11 +685,11 @@ function Hero({onStart,isMobile}){
             color:hovAct===2?C.dim:C.dim+"66",
             transition:"color 250ms ease",
           }}>
-            церемонии · нейроакустика
+            проверенные виллы и персонал · документы · сеть на Бали
           </div>
         </div>
 
-        {/* РЕЗУЛЬТАТ */}
+        {/* Результат — гибкость тиров */}
         <div style={{
           opacity:act>=3?1:0,
           transform:act>=3?"translateY(0)":"translateY(16px)",
@@ -703,25 +698,25 @@ function Hero({onStart,isMobile}){
         }}>
           <div style={{
             fontFamily:"'Fraunces',serif",fontWeight:400,fontStyle:"italic",
-            fontSize:isMobile?"clamp(17px,4.2vw,23px)":"clamp(19px,1.9vw,27px)",
-            letterSpacing:"0.005em",color:C.t,
+            fontSize:isMobile?"clamp(15px,3.8vw,20px)":"clamp(17px,1.7vw,23px)",
+            letterSpacing:"0.005em",color:C.t,lineHeight:1.4,
           }}>
-            Тишина.&nbsp;&nbsp;Ресурс.&nbsp;&nbsp;Ясность.
+            От личной заботы о вас — до полного сопровождения группы.<br/>Вы выбираете уровень.
           </div>
         </div>
 
-        {/* АНТИКОНЦЕПТЫ — с паузой после результата — P0 */}
+        {/* Антиконцепты — их реальность, не гуру-язык */}
         <div style={{
           opacity:tagsVis?1:0,
           transform:tagsVis?"translateY(0)":"translateY(8px)",
           transition:`opacity 900ms ${EASE}, transform 900ms ${EASE}`,
-          display:"flex",gap:isMobile?14:22,flexWrap:"wrap",
+          display:"flex",gap:isMobile?12:20,flexWrap:"wrap",
           marginBottom:isMobile?32:0,
         }}>
-          {["Без гуру","Без женских кругов","Без расписания"].map((x,i)=>(
+          {["Без чужого персонала в последний момент","Без логистики которая рушится","Без ретрита где вы работаете больше всех"].map((x,i)=>(
             <span key={i} style={{
               fontFamily:"'Space Grotesk',sans-serif",fontWeight:400,
-              fontSize:9,letterSpacing:"0.24em",
+              fontSize:9,letterSpacing:"0.2em",
               color:C.dim+"77",textTransform:"uppercase",
             }}>{x}</span>
           ))}
@@ -731,14 +726,13 @@ function Hero({onStart,isMobile}){
       {/* ═══ ПРАВАЯ КОЛОННА: сфера + боль ═══ */}
       <div style={{
         position:"relative",zIndex:2,
-        order:2, // сфера ВСЕГДА вторая — P0
+        order:2,
         display:"flex",flexDirection:"column",
         alignItems:isMobile?"flex-start":"center",
         gap:20,
         opacity:1-heroProgress*0.4,
       }}>
 
-        {/* Сфера: разделены SphereIn-анимация и hover-transform — P0 */}
         <div style={{
           animation:mounted?"i11umeSphereIn 1200ms cubic-bezier(0.22,1,0.36,1) both":"none",
         }}>
@@ -754,7 +748,6 @@ function Hero({onStart,isMobile}){
             }}
           >
             <IdleSphere size={isMobile?130:186}/>
-            {/* glow — P0 gentle breath */}
             <div style={{
               position:"absolute",inset:"-28%",
               display:"flex",alignItems:"center",justifyContent:"center",
@@ -770,7 +763,6 @@ function Hero({onStart,isMobile}){
                 transition:"background 400ms ease",
               }}/>
             </div>
-            {/* hover ring */}
             <div style={{
               position:"absolute",
               inset:sphereHov?"-6px":"-1px",
@@ -782,7 +774,7 @@ function Hero({onStart,isMobile}){
           </div>
         </div>
 
-        {/* Явная CTA-кнопка — видима всегда, не только на hover — P0 */}
+        {/* CTA — калькулятор истощения, не диагностика тела */}
         <button
           onClick={onStart}
           style={{
@@ -793,23 +785,24 @@ function Hero({onStart,isMobile}){
             color:C.cy,
             fontFamily:"'Space Grotesk',sans-serif",
             fontWeight:500,fontSize:10,
-            letterSpacing:"0.22em",textTransform:"uppercase",
+            letterSpacing:"0.2em",textTransform:"uppercase",
             cursor:"pointer",
             opacity:mounted?1:0,
             transition:`opacity 900ms ${EASE} 800ms, background 250ms ease, border-color 250ms ease`,
             outline:"none",
+            textAlign:"center",
           }}
           onMouseEnter={e=>{e.currentTarget.style.background=`${C.cy}1A`;e.currentTarget.style.borderColor=`${C.cy}77`;}}
           onMouseLeave={e=>{e.currentTarget.style.background=`${C.cy}0D`;e.currentTarget.style.borderColor=`${C.cy}44`;}}
         >
-          Пройти диагностику →
+          Узнать свой индекс истощения →
         </button>
 
-        {/* Боль-контейнер */}
+        {/* Боль-контейнер — реальность вожака */}
         <div style={{
           opacity:act>=3?1:0,
           transition:`opacity 1200ms ${EASE}`,
-          maxWidth:isMobile?"100%":210,
+          maxWidth:isMobile?"100%":230,
           textAlign:isMobile?"left":"center",
         }}>
           <div style={{
@@ -827,7 +820,7 @@ function Hero({onStart,isMobile}){
             fontSize:9,letterSpacing:"0.2em",
             color:C.dim+"55",textTransform:"uppercase",
           }}>
-            найдите где вы сейчас
+            6 вопросов о вашем ресурсе
           </div>
         </div>
       </div>
@@ -1566,6 +1559,210 @@ function Scanner({phase,setPhase,answers,setAnswers,isMobile}){
 }
 
 /* ═══ APP ════════════════════════════════════════════════ */
+/* ═══ ТИРЫ — уровни поддержки фасилитатора ═══════════════ */
+const TIERS = [
+  {
+    n:"01",
+    name:"Личная забота",
+    tag:"Входит всегда",
+    price:"от $400",
+    desc:"Наш сигнатурный слой. Работает даже если всё остальное вы решаете сами.",
+    items:[
+      "Встреча в аэропорту",
+      "Баня и массаж по приезду",
+      "Личный протокол между вашими сессиями с группой",
+      "Легалити лично для вас, если нужно",
+    ],
+    accent:C.p,
+  },
+  {
+    n:"02",
+    name:"Курирование",
+    tag:"Мы на связи, не операторы",
+    price:"от $1200",
+    desc:"Проверенная сеть вместо поиска вслепую. Бронируете сами — с нашими контактами и рекомендациями.",
+    items:[
+      "Виллы и площадки из нашей базы",
+      "Проверенный персонал — повара, водители, помощники",
+      "Всё что входит в Tier 1",
+    ],
+    accent:C.cy,
+  },
+  {
+    n:"03",
+    name:"Полное сопровождение",
+    tag:"Для тех кто не хочет думать об этом вообще",
+    price:"по запросу",
+    desc:"Операционная часть группы — на нас. Чёткие границы ответственности, прозрачный бюджет.",
+    items:[
+      "Полная логистика группы",
+      "Координация на месте весь ретрит",
+      "Всё что входит в Tier 1 и 2",
+    ],
+    accent:C.gold,
+  },
+];
+
+function Tiers({isMobile}){
+  const [mounted,setMounted] = useState(false);
+  const [hovT,setHovT] = useState(null);
+  const ref = useRef(null);
+
+  useEffect(()=>{
+    const obs = new IntersectionObserver(([e])=>{
+      if(e.isIntersecting) setMounted(true);
+    },{threshold:0.15});
+    if(ref.current) obs.observe(ref.current);
+    return()=>obs.disconnect();
+  },[]);
+
+  return(
+    <section ref={ref} style={{
+      padding:isMobile?"72px 20px 80px":"100px 56px 120px",
+      borderTop:`1px solid ${C.gold}14`,
+      boxSizing:"border-box",
+    }}>
+      <div style={{
+        opacity:mounted?1:0,
+        transform:mounted?"translateY(0)":"translateY(20px)",
+        transition:`opacity 800ms ${EASE}, transform 800ms ${EASE}`,
+        marginBottom:isMobile?36:52,
+        maxWidth:560,
+      }}>
+        <div style={{
+          fontSize:9,letterSpacing:"0.35em",color:C.dim,
+          textTransform:"uppercase",marginBottom:14,
+          fontFamily:"'Space Grotesk',sans-serif",
+        }}>
+          Уровни поддержки
+        </div>
+        <h2 style={{
+          fontFamily:"'Fraunces',serif",fontWeight:500,
+          fontSize:isMobile?"clamp(26px,7vw,36px)":"clamp(32px,3vw,44px)",
+          letterSpacing:"-0.015em",color:C.t,lineHeight:1.1,marginBottom:14,
+        }}>
+          Вы решаете сколько передать нам.
+        </h2>
+        <p style={{
+          fontFamily:"'Inter',sans-serif",fontWeight:300,fontSize:13.5,
+          color:C.dim,lineHeight:1.7,
+        }}>
+          Мы не берём вашу группу под управление по умолчанию. Мы начинаем с заботы о вас — дальше вы сами выбираете, сколько операционной части хотите передать.
+        </p>
+      </div>
+
+      <div style={{
+        display:"grid",
+        gridTemplateColumns:isMobile?"1fr":"repeat(3, 1fr)",
+        gap:isMobile?16:20,
+      }}>
+        {TIERS.map((t,i)=>{
+          const hov = hovT===i;
+          return(
+            <div key={i}
+              onMouseEnter={()=>setHovT(i)}
+              onMouseLeave={()=>setHovT(null)}
+              style={{
+                opacity:mounted?1:0,
+                transform:mounted?"translateY(0)":"translateY(28px)",
+                transition:`opacity 800ms ${EASE} ${i*120}ms, transform 800ms ${EASE} ${i*120}ms, border-color 300ms ease`,
+                border:`1px solid ${hov?t.accent+"66":C.dim+"26"}`,
+                borderRadius:20,
+                padding:isMobile?"24px 22px":"28px 26px",
+                background:hov?`${t.accent}0A`:`${C.surf}66`,
+              }}
+            >
+              <div style={{
+                display:"flex",justifyContent:"space-between",alignItems:"flex-start",
+                marginBottom:20,
+              }}>
+                <span style={{
+                  fontFamily:"'Fraunces',serif",fontWeight:400,fontStyle:"italic",
+                  fontSize:28,color:t.accent+"88",
+                }}>
+                  {t.n}
+                </span>
+                <span style={{
+                  fontFamily:"'Space Grotesk',sans-serif",fontSize:8,
+                  letterSpacing:"0.16em",color:C.dim,textTransform:"uppercase",
+                  border:`1px solid ${C.dim}33`,borderRadius:100,
+                  padding:"3px 9px",textAlign:"right",
+                }}>
+                  {t.tag}
+                </span>
+              </div>
+
+              <div style={{
+                fontFamily:"'Fraunces',serif",fontWeight:500,fontSize:20,
+                color:C.t,marginBottom:8,
+              }}>
+                {t.name}
+              </div>
+              <div style={{
+                fontFamily:"'Space Grotesk',sans-serif",fontSize:13,
+                color:t.accent,marginBottom:14,
+              }}>
+                {t.price}
+              </div>
+              <p style={{
+                fontFamily:"'Inter',sans-serif",fontWeight:300,fontSize:12,
+                color:C.dim,lineHeight:1.6,marginBottom:18,
+              }}>
+                {t.desc}
+              </p>
+
+              <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                {t.items.map((item,j)=>(
+                  <div key={j} style={{
+                    display:"flex",alignItems:"flex-start",gap:8,
+                  }}>
+                    <span style={{
+                      color:t.accent,fontSize:11,marginTop:2,flexShrink:0,
+                    }}>—</span>
+                    <span style={{
+                      fontFamily:"'Inter',sans-serif",fontWeight:300,fontSize:12,
+                      color:C.body,lineHeight:1.5,
+                    }}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{
+        opacity:mounted?1:0,
+        transition:`opacity 1000ms ${EASE} 500ms`,
+        marginTop:isMobile?32:44,
+        display:"flex",alignItems:"center",gap:14,
+        flexWrap:"wrap",
+      }}>
+        <a href="https://wa.me/6281339630129?text=Здравствуйте!%20Организую%20ретрит%20на%20Бали%2C%20хочу%20обсудить%20уровни%20поддержки%20i11ume."
+          target="_blank" rel="noreferrer"
+          style={{
+            padding:"12px 26px",
+            border:`1px solid ${C.p}77`,borderRadius:100,
+            background:C.p+"14",color:C.p,
+            fontFamily:"'Space Grotesk',sans-serif",fontWeight:500,fontSize:11,
+            letterSpacing:"0.16em",textTransform:"uppercase",
+            textDecoration:"none",
+          }}>
+          Обсудить ваш ретрит →
+        </a>
+        <span style={{
+          fontFamily:"'Inter',sans-serif",fontWeight:300,fontSize:12,
+          color:C.dim+"99",
+        }}>
+          Ответим в течение дня
+        </span>
+      </div>
+    </section>
+  );
+}
+
 export default function App(){
   const [phase,setPhase]=useState("idle");
   const [answers,setAnswers]=useState([]);
@@ -1597,6 +1794,7 @@ export default function App(){
     <div style={{background:C.bg,color:C.t,minHeight:"100vh",fontFamily:"'Inter',sans-serif"}}>
       <Nav isMobile={isMobile}/>
       <Hero onStart={startQuiz} isMobile={isMobile}/>
+      <Tiers isMobile={isMobile}/>
       <div ref={scannerRef}>
         <Scanner
           phase={phase}
