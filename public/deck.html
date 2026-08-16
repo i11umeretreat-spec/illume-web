@@ -137,7 +137,19 @@ p + p{margin-top:16px}
   .cover .meta{gap:8px;flex-direction:column}
 }
 @media print{
-  .page{page-break-after:always;border-bottom:none;padding:56px 40px}
+  @page{size:A4 portrait;margin:0}
+  html,body{background:#0A1420!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always;break-after:page;border-bottom:none;padding:58px 52px;max-width:none}
+  .cover{padding-top:64px;padding-bottom:64px}
+  .tier{padding:30px 28px;margin-top:0}
+  .item{padding:11px 0}
+  .items{margin-top:22px}
+  .price{margin-top:22px;padding-top:16px}
+  .between{margin-top:26px;padding-top:20px;break-inside:avoid}
+  .people{margin-top:20px}
+  h2{font-size:28px}
+  .tier h2{font-size:25px}
+  .page:last-child{page-break-after:auto}
   .cta{display:none}
   .sig-path{stroke-dashoffset:0;animation:none}
   .sig-dot{opacity:1;animation:none}
