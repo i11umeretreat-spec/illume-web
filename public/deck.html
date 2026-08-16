@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i11ume · Сопровождение проводников на Бали</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A1420;
+  --surf:#0E1A2A;
+  --line:#1A2A3D;
+  --terra:#B5583A;
+  --teal:#3DBFA8;
+  --gold:#E0A93A;
+  --cream:#EAE2D6;
+  --soft:rgba(234,226,214,.60);
+  --softer:rgba(234,226,214,.58);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--terra);color:#fff}
+::-webkit-scrollbar{width:7px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--terra)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+
+.page{max-width:760px;margin:0 auto;padding:96px 40px;border-bottom:1px solid var(--line)}
+.page:last-child{border-bottom:none}
+
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;letter-spacing:-.01em}
+h1{font-size:clamp(34px,6.4vw,58px);line-height:1.12}
+h2{font-size:clamp(26px,4.6vw,38px);line-height:1.2}
+h3{font-size:21px;line-height:1.3}
+p{font-size:16px;max-width:58ch}
+p + p{margin-top:16px}
+.lead{font-size:18px}
+.soft{color:var(--soft)}
+.util{font-family:'Space Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;font-size:10.5px}
+
+/* ЛОГОТИП */
+.brand{display:flex;align-items:center;gap:11px}
+.brand svg{display:block}
+.brand .wm{font-family:'Fraunces',serif;font-size:15px;letter-spacing:.34em;color:var(--cream);padding-left:2px}
+
+/* ОБЛОЖКА */
+.cover{padding-top:120px;padding-bottom:120px}
+.cover h1{margin:56px 0 30px}
+.cover .accent{color:var(--gold)}
+.cover .meta{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--softer);display:flex;gap:26px;flex-wrap:wrap}
+
+/* СИГНАТУРА · ДУГА ОПУСТОШЕНИЯ И НАПОЛНЕНИЯ */
+.signature{margin:44px 0 0}
+.signature svg{width:100%;height:auto;display:block;overflow:visible}
+.sig-path{stroke:var(--gold);stroke-width:1;fill:none;stroke-linecap:round;
+  stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.4s cubic-bezier(.22,.61,.36,1) .3s forwards}
+.sig-dot{fill:var(--gold);opacity:0;animation:dot .8s ease-out 2.1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes dot{to{opacity:1}}
+
+.arc{display:flex;border:1px solid var(--line);border-top:none;border-radius:0 0 2px 2px}
+.arc > div{flex:1;padding:26px 24px}
+.arc > div:first-child{border-right:1px solid var(--line)}
+.arc h3{font-size:17px;margin-bottom:11px;color:var(--cream)}
+.arc p{font-size:15px;color:var(--soft)}
+
+/* УРОВНИ */
+.tier{background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:38px 34px;margin-top:34px}
+.tier h2{font-size:29px}
+.tier .scope{margin-top:12px;color:var(--soft);font-family:'Space Grotesk',sans-serif;
+  letter-spacing:.18em;text-transform:uppercase;font-size:10.5px}
+.tier .desc{margin-top:18px;font-size:15.5px;color:var(--soft);max-width:52ch}
+
+.items{margin-top:30px;border-top:1px solid var(--line)}
+.item{padding:15px 0;border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:baseline}
+.item:last-child{border-bottom:none}
+.item .k{flex:0 0 148px;font-family:'Space Grotesk',sans-serif;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--teal);line-height:1.7}
+.item .v{font-size:15px;flex:1}
+
+.price{margin-top:30px;padding-top:22px;border-top:1px solid var(--gold);display:flex;
+  align-items:baseline;gap:14px;flex-wrap:wrap}
+.ph{color:var(--gold);font-family:'Fraunces',serif;font-size:24px;letter-spacing:.01em;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.price .note{font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--softer);font-variant-numeric:tabular-nums}
+
+/* МЕЖДУ УРОВНЯМИ */
+.between{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+.between h3{margin-bottom:10px}
+.between p{font-size:15px;color:var(--soft)}
+
+.terms .item .k{color:var(--gold)}
+.terms .item .v{font-variant-numeric:tabular-nums}
+
+/* ЛЮДИ */
+.people{margin-top:30px}
+.person{padding:26px 0;border-top:1px solid var(--line)}
+.person h3{margin-bottom:6px}
+.person .role{color:var(--teal);font-family:'Space Grotesk',sans-serif;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.person p{font-size:15px;color:var(--soft)}
+
+/* КОНТАКТ */
+.ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.cta{display:inline-block;padding:16px 34px;border:1px solid var(--line);
+  border-radius:100px;background:transparent;color:var(--cream);
+  font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;transition:background .3s ease}
+.cta:hover{border-color:var(--gold);color:var(--gold)}
+.contact h2{margin-bottom:24px}
+.contact .line{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);
+  font-family:'Space Grotesk',sans-serif;font-size:11.5px;letter-spacing:.08em;color:var(--soft)}
+.contact .line a,.contact .line span{display:block;margin-bottom:8px;
+  font-variant-numeric:tabular-nums;transition:color .25s ease}
+.contact .line a:hover{color:var(--gold)}
+.contact .line span{color:var(--softer)}
+
+@media (max-width:640px){
+  .page{padding:64px 24px}
+  .tier{padding:28px 22px}
+  .arc{flex-direction:column}
+  .arc > div:first-child{border-right:none;border-bottom:1px solid var(--line)}
+  .item{flex-direction:column;gap:5px}
+  .item .k{flex:none}
+  .cover .meta{gap:8px;flex-direction:column}
+}
+@media print{
+  .page{page-break-after:always;border-bottom:none;padding:56px 40px}
+  .cta{display:none}
+  .sig-path{stroke-dashoffset:0;animation:none}
+  .sig-dot{opacity:1;animation:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .sig-path{stroke-dashoffset:0;animation:none}
+  .sig-dot{opacity:1;animation:none}
+}
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="brand">
+    <svg width="22" height="22" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M20 6 C29 12, 29 28, 20 34 C11 28, 11 12, 20 6 Z" stroke="#EAE2D6" stroke-width="1.1"/>
+      <circle cx="20" cy="20" r="3.4" stroke="#E0A93A" stroke-width="1"/>
+    </svg>
+    <span class="wm">i11ume</span>
+  </div>
+
+  <h1>Пока вы ведёте группу,<br><span class="accent">мы заботимся о вас</span></h1>
+  <p class="lead soft">Сопровождение проводников и их групп на Бали. Вы держите пространство для людей. Мы держим всё остальное, включая вас самих.</p>
+
+  <div class="meta util">
+    <span>Бали, Индонезия</span>
+    <span>PT RAJA</span>
+    <span>2026</span>
+  </div>
+</section>
+
+<section class="page">
+  <h2>Что обычно остаётся без внимания</h2>
+  <p class="soft" style="margin-top:24px">Когда вы привозите группу, все ресурсы уходят на людей. Расселение, мастера, локации, чьи-то самочувствия и вопросы в час ночи. О себе вы вспоминаете последним, обычно уже в самолёте обратно.</p>
+  <p class="soft">Мы работаем с двух сторон. До заезда освобождаем вам место, чтобы вы вошли в работу не с полными руками. После заезда возвращаем то, что вы отдали за эти дни.</p>
+
+  <div class="signature">
+    <svg viewBox="0 0 700 108" preserveAspectRatio="none" role="img" aria-label="Кривая: опустошение до заезда, наполнение после">
+      <path class="sig-path" d="M 14 26 C 150 26, 210 88, 350 88 C 490 88, 550 26, 686 26"/>
+      <circle class="sig-dot" cx="350" cy="88" r="3.2"/>
+    </svg>
+  </div>
+
+  <div class="arc">
+    <div>
+      <h3>До заезда</h3>
+      <p>Встреча, тело, тишина. Вы приезжаете за сутки раньше группы и успеваете выгрузить своё, прежде чем начнёте принимать чужое.</p>
+    </div>
+    <div>
+      <h3>После заезда</h3>
+      <p>Вы отдали всё, что у вас было. Здесь вам ничего не нужно вести и никого не нужно держать. Только принимать.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="tier">
+    <h2>Сопровождение организаторов</h2>
+    <div class="scope">Уровень 1 · забота о вас и вашей команде</div>
+    <p class="desc">Группа идёт по вашему плану, мы в него не вмешиваемся. Наша территория это вы.</p>
+
+    <div class="items">
+      <div class="item"><div class="k">Встреча</div><div class="v">Трансфер из аэропорта и обратно, без ожидания и торга с водителями</div></div>
+      <div class="item"><div class="k">Тело до</div><div class="v">Аутентичная баня и глубокий массаж у Нади, до того как вы начнёте работу</div></div>
+      <div class="item"><div class="k">Церемония до</div><div class="v">Сакральная церемония на освобождение пространства. Формат подбираем лично под вас</div></div>
+      <div class="item"><div class="k">Тело после</div><div class="v">Баня и массаж в день завершения или на следующий, по вашему состоянию</div></div>
+      <div class="item"><div class="k">Церемония после</div><div class="v">Закрывающая церемония, чтобы не увозить домой то, что было отдано группе</div></div>
+      <div class="item"><div class="k">На связи</div><div class="v">Один человек с нашей стороны на весь ваш заезд, в WhatsApp или Telegram</div></div>
+    </div>
+
+    <div class="price">
+      <span class="ph">400 $</span>
+      <span class="note">за одного организатора, плюс 100 $ за каждого следующего</span>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="tier">
+    <h2>Полное сопровождение группы</h2>
+    <div class="scope">Уровень 2 · включает всё из первого</div>
+    <p class="desc">Операционная сторона вашего заезда целиком. Вы приезжаете вести людей, а не решать вопросы с виллой и трансфером.</p>
+
+    <div class="items">
+      <div class="item"><div class="k">Локации</div><div class="v">Подбор и бронирование вилл и площадок под ваш формат и размер группы</div></div>
+      <div class="item"><div class="k">Логистика</div><div class="v">Трансферы группы, перемещения между точками, водители, которых мы знаем лично</div></div>
+      <div class="item"><div class="k">Питание</div><div class="v">Повара под нужный тип питания, включая непростые запросы по составу</div></div>
+      <div class="item"><div class="k">Мастера</div><div class="v">Доступ к закрытому пулу практиков острова, проверенных нами лично</div></div>
+      <div class="item"><div class="k">Календарь</div><div class="v">Сверка ваших дат с балийским церемониальным календарём, чтобы не попасть на закрытый остров</div></div>
+      <div class="item"><div class="k">Юрлицо</div><div class="v">Приём оплат от ваших участников через PT RAJA, легально и с документами</div></div>
+      <div class="item"><div class="k">Адаптация</div><div class="v">Заземление участников при интенсивном опыте взаимодействия с островом. Помощь в плавной интеграции сложных состояний</div></div>
+    </div>
+
+    <div class="price">
+      <span class="ph">от 1000 $</span>
+      <span class="note">зависит от объёма работ, особые условия обсуждаем лично</span>
+    </div>
+  </div>
+
+  <div class="between">
+    <h3>Между уровнями</h3>
+    <p>Промежуточные варианты собираем лично. Если нужна часть второго уровня, но не весь, просто скажите что именно, и мы посчитаем под вас.</p>
+  </div>
+</section>
+
+<section class="page">
+  <h2>Как это устроено</h2>
+  <p class="soft" style="margin-top:24px">У нас есть индонезийская компания PT RAJA, через неё можно провести договор, счета и приём оплат, чтобы у вас на руках остались нормальные документы, а не переписка. Это возможность, а не обязательное условие. Если вам удобнее иначе, работаем иначе.</p>
+
+  <div class="items terms">
+    <div class="item"><div class="k">Договор</div><div class="v">Фиксирует объём работ и сроки до начала. Через компанию по вашему выбору, можно и без неё</div></div>
+    <div class="item"><div class="k">Депозит</div><div class="v">30 процентов при подтверждении дат. Если оплаты по бронированиям ещё не ушли, депозит возвращаем полностью</div></div>
+    <div class="item"><div class="k">Отмена</div><div class="v">Более 14 дней возвращаем остаток полностью, от 7 до 14 дней половину, менее 7 дней средства удерживаются</div></div>
+    <div class="item"><div class="k">Гибкость</div><div class="v">Условия обсуждаемы. Если ваша ситуация не укладывается в эту схему, скажите, и мы найдём рабочий вариант</div></div>
+    <div class="item"><div class="k">Перенос</div><div class="v">Возможен при уведомлении за 10 дней и наличии свободных дат</div></div>
+    <div class="item"><div class="k">Отдельно</div><div class="v">Консультация по статусу пребывания для вас и вашей команды</div></div>
+  </div>
+</section>
+
+<section class="page">
+  <h2>Кто это делает</h2>
+  <div class="people">
+    <div class="person">
+      <h3>Нади</h3>
+      <div class="role">Тело и церемонии</div>
+      <p>Мастер соматики, парений и глубокого массажа. Работает молча и держит поле, в котором можно отпустить контроль. Ведёт всё, что касается тела и церемоний.</p>
+    </div>
+    <div class="person">
+      <h3>Дре</h3>
+      <div class="role">Организация и юрлицо</div>
+      <p>Отвечает за структуру, договор, деньги и всю операционную часть. С ним вы решаете вопросы по срокам, объёму и оплате.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page contact">
+  <h2>Дальше просто разговор</h2>
+  <p class="soft">Напишите даты, размер группы и что уже собрано с вашей стороны. Мы скажем, что можем взять на себя и сколько это будет стоить. Без анкет и звонков по расписанию.</p>
+
+  <div class="ctas">
+    <a class="cta" href="https://wa.me/6281339630129">Написать в WhatsApp</a>
+    <a class="cta" href="https://t.me/+6281339630129">Написать в Telegram</a>
+  </div>
+
+  <div class="line">
+    <a href="https://wa.me/6281339630129">WhatsApp +62 813 3963 0129</a>
+    <a href="https://t.me/+6281339630129">Telegram +62 813 3963 0129</a>
+    <a href="mailto:hello@i11ume.com">hello@i11ume.com</a>
+    <span>PT RAJA · Бали, Индонезия</span>
+  </div>
+</section>
+
+</body>
+</html>
