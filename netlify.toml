@@ -6,6 +6,19 @@
 [functions]
   node_bundler = "esbuild"
 
+# deck.i11ume.com отдаёт презентацию, а не приложение
+[[redirects]]
+  from   = "https://deck.i11ume.com/*"
+  to     = "/deck.html"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "http://deck.i11ume.com/*"
+  to     = "/deck.html"
+  status = 200
+  force  = true
+
 [[redirects]]
   from = "/*"
   to   = "/index.html"
