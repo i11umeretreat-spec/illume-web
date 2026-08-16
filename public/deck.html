@@ -16,7 +16,6 @@
   --ice:#7CF5FF;
   --cream:#EAE2D6;
   --soft:rgba(234,226,214,.60);
-  --softer:rgba(234,226,214,.58);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -58,7 +57,7 @@ p + p{margin-top:16px}
 .cover{padding-top:120px;padding-bottom:120px}
 .cover h1{margin:56px 0 30px}
 .cover .accent{color:var(--ice)}
-.cover .meta{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--softer);display:flex;gap:26px;flex-wrap:wrap}
+.cover .meta{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);display:flex;gap:26px;flex-wrap:wrap}
 
 /* СИГНАТУРА · ДУГА ОПУСТОШЕНИЯ И НАПОЛНЕНИЯ */
 .signature{margin:44px 0 0}
@@ -94,9 +93,10 @@ p + p{margin-top:16px}
 .ph{color:var(--sand);font-family:'Fraunces',serif;font-size:24px;letter-spacing:.01em;
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .price .note{font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--softer);font-variant-numeric:tabular-nums}
+  text-transform:uppercase;color:var(--soft);font-variant-numeric:tabular-nums}
 
 /* МЕЖДУ УРОВНЯМИ */
+.incl{flex-basis:100%;margin-top:10px;font-size:13px;color:var(--soft);max-width:52ch}
 .between{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
 .between h3{margin-bottom:10px}
 .between p{font-size:15px;color:var(--soft)}
@@ -125,7 +125,7 @@ p + p{margin-top:16px}
 .contact .line a,.contact .line span{display:block;margin-bottom:8px;
   font-variant-numeric:tabular-nums;transition:color .25s ease}
 .contact .line a:hover{color:var(--ice)}
-.contact .line span{color:var(--softer)}
+.contact .line span{color:var(--soft)}
 
 @media (max-width:640px){
   .page{padding:64px 24px}
@@ -141,11 +141,15 @@ p + p{margin-top:16px}
   html,body{background:#0A1420!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .page{page-break-after:always;break-after:page;border-bottom:none;padding:58px 52px;max-width:none}
   .cover{padding-top:64px;padding-bottom:64px}
-  .tier{padding:30px 28px;margin-top:0}
-  .item{padding:11px 0}
+  .tier{padding:26px 26px;margin-top:0}
+  .item{padding:9px 0}
+  .incl{margin-top:8px;font-size:12px}
+  .desc{margin-top:14px}
   .items{margin-top:22px}
   .price{margin-top:22px;padding-top:16px}
-  .between{margin-top:26px;padding-top:20px;break-inside:avoid}
+  .between{margin-top:16px;padding-top:14px;break-inside:avoid}
+  .between p{font-size:13px}
+  .page{padding:44px 52px}
   .people{margin-top:20px}
   h2{font-size:28px}
   .tier h2{font-size:25px}
@@ -175,12 +179,12 @@ p + p{margin-top:16px}
   </div>
 
   <h1>Пока вы ведёте группу,<br><span class="accent">мы заботимся о вас</span></h1>
-  <p class="lead soft">Сопровождение проводников и их групп на Бали. Вы держите пространство для людей. Мы держим всё остальное, включая вас самих.</p>
+  <p class="lead soft">Личное и операционное сопровождение организаторов групп на Бали. Вы держите пространство для людей. Мы держим всё остальное, включая вас самих.</p>
 
   <div class="meta util">
     <span>Бали, Индонезия</span>
     <span>PT RAJA</span>
-    <span>2026</span>
+    <span>Август 2026</span>
   </div>
 </section>
 
@@ -190,7 +194,7 @@ p + p{margin-top:16px}
   <p class="soft">Мы работаем с двух сторон. До заезда освобождаем вам место, чтобы вы вошли в работу не с полными руками. После заезда возвращаем то, что вы отдали за эти дни.</p>
 
   <div class="signature">
-    <svg viewBox="0 0 700 108" preserveAspectRatio="none" role="img" aria-label="Кривая: опустошение до заезда, наполнение после">
+    <svg viewBox="0 0 700 108" preserveAspectRatio="none" aria-hidden="true">
       <path class="sig-path" d="M 14 26 C 150 26, 210 88, 350 88 C 490 88, 550 26, 686 26"/>
       <circle class="sig-dot" cx="350" cy="88" r="3.2"/>
     </svg>
@@ -203,72 +207,86 @@ p + p{margin-top:16px}
     </div>
     <div>
       <h3>После заезда</h3>
-      <p>Вы отдали всё, что у вас было. Здесь вам ничего не нужно вести и никого не нужно держать. Только принимать.</p>
+      <p>Группа уехала. У вас снова есть отдельное время на восстановление, без координации участников и бытовых решений.</p>
     </div>
   </div>
 </section>
 
 <section class="page">
   <div class="tier">
-    <h2>Сопровождение организаторов</h2>
+    <h2>Личное сопровождение организатора</h2>
     <div class="scope">Уровень 1 · забота о вас и вашей команде</div>
     <p class="desc">Группа идёт по вашему плану, мы в него не вмешиваемся. Наша территория это вы.</p>
 
     <div class="items">
       <div class="item"><div class="k">Встреча</div><div class="v">Трансфер из аэропорта и обратно, без ожидания и торга с водителями</div></div>
-      <div class="item"><div class="k">Тело до</div><div class="v">Аутентичная баня и глубокий массаж у Нади, до того как вы начнёте работу</div></div>
-      <div class="item"><div class="k">Церемония до</div><div class="v">Сакральная церемония на освобождение пространства. Формат подбираем лично под вас</div></div>
+      <div class="item"><div class="k">Тело до</div><div class="v">Баня, парение и глубокий массаж у Нади, до того как вы начнёте работу</div></div>
+      <div class="item"><div class="k">Церемония до</div><div class="v">Индивидуальный балийский ритуал перед началом. Формат согласуем заранее, участие по желанию</div></div>
       <div class="item"><div class="k">Тело после</div><div class="v">Баня и массаж в день завершения или на следующий, по вашему состоянию</div></div>
-      <div class="item"><div class="k">Церемония после</div><div class="v">Закрывающая церемония, чтобы не увозить домой то, что было отдано группе</div></div>
+      <div class="item"><div class="k">Церемония после</div><div class="v">Завершающий ритуал после отъезда группы, по тому же принципу</div></div>
       <div class="item"><div class="k">На связи</div><div class="v">Один человек с нашей стороны на весь ваш заезд, в WhatsApp или Telegram</div></div>
     </div>
 
     <div class="price">
       <span class="ph">400 $</span>
-      <span class="note">за одного организатора, плюс 100 $ за каждого следующего</span>
+      <span class="note">за весь заезд, один организатор. Каждый следующий плюс 100 $</span>
+      <p class="incl">Всё перечисленное выше входит в стоимость. Проживание оплачивается отдельно.</p>
     </div>
   </div>
 </section>
 
 <section class="page">
   <div class="tier">
-    <h2>Полное сопровождение группы</h2>
+    <h2>Организация и сопровождение группы</h2>
     <div class="scope">Уровень 2 · включает всё из первого</div>
     <p class="desc">Операционная сторона вашего заезда целиком. Вы приезжаете вести людей, а не решать вопросы с виллой и трансфером.</p>
 
     <div class="items">
       <div class="item"><div class="k">Локации</div><div class="v">Подбор и бронирование вилл и площадок под ваш формат и размер группы</div></div>
-      <div class="item"><div class="k">Логистика</div><div class="v">Трансферы группы, перемещения между точками, водители, которых мы знаем лично</div></div>
+      <div class="item"><div class="k">Логистика</div><div class="v">Трансферы группы и перемещения между точками, с водителями, с которыми мы работаем постоянно</div></div>
       <div class="item"><div class="k">Питание</div><div class="v">Повара под нужный тип питания, включая непростые запросы по составу</div></div>
-      <div class="item"><div class="k">Мастера</div><div class="v">Доступ к закрытому пулу практиков острова, проверенных нами лично</div></div>
-      <div class="item"><div class="k">Календарь</div><div class="v">Сверка ваших дат с балийским церемониальным календарём, чтобы не попасть на закрытый остров</div></div>
-      <div class="item"><div class="k">Юрлицо</div><div class="v">Приём оплат от ваших участников через PT RAJA, легально и с документами</div></div>
-      <div class="item"><div class="k">Адаптация</div><div class="v">Заземление участников при интенсивном опыте взаимодействия с островом. Помощь в плавной интеграции сложных состояний</div></div>
+      <div class="item"><div class="k">Мастера</div><div class="v">Подбор мастеров и практиков под вашу программу. Перед включением в маршрут проверяем формат работы, условия и доступность</div></div>
+      <div class="item"><div class="k">Календарь</div><div class="v">Сверка дат с Ньепи, религиозными праздниками и локальными ограничениями движения, чтобы локации остались доступны</div></div>
+      <div class="item"><div class="k">Юрлицо</div><div class="v">Приём оплат от ваших участников через PT RAJA, с договором и закрывающими документами</div></div>
+      <div class="item"><div class="k">Адаптация</div><div class="v">Бытовая и организационная поддержка участников после насыщенных дней: транспорт, вода, отдых, тихое место, дальнейшая координация</div></div>
     </div>
 
     <div class="price">
       <span class="ph">от 1000 $</span>
-      <span class="note">зависит от объёма работ, особые условия обсуждаем лично</span>
+      <span class="note">зависит от объёма работ и размера группы</span>
+      <p class="incl">Точный состав и стоимость фиксируем после разговора. Проживание, питание и работа подрядчиков считаются отдельно.</p>
     </div>
   </div>
 
-  <div class="between">
+</section>
+
+<section class="page">
+  <h2>Как это устроено</h2>
+  <p class="soft" style="margin-top:24px">У нас есть индонезийская компания PT RAJA. Через неё проходит договор, счета и приём оплат, и у вас на руках остаются документы, а не переписка. Если вам удобнее другой формат расчётов, обсуждаем отдельно, но стороной договора в этом случае выступает не компания.</p>
+
+  <div class="items terms">
+    <div class="item"><div class="k">Договор</div><div class="v">Фиксирует состав услуг, сроки и стоимость до начала работы</div></div>
+    <div class="item"><div class="k">Депозит</div><div class="v">30 процентов от согласованной суммы, вносится для подтверждения дат</div></div>
+    <div class="item"><div class="k">Отмена</div><div class="v">Дни считаются до даты заезда. Более 14 дней возвращаем всё за вычетом уже оплаченных невозвратных броней, от 7 до 14 дней половину депозита за тем же вычетом, менее 7 дней депозит не возвращается</div></div>
+    <div class="item"><div class="k">Гибкость</div><div class="v">Условия обсуждаемы. Если ваша ситуация не укладывается в эту схему, скажите, и мы найдём рабочий вариант. Итоговые условия фиксирует договор</div></div>
+    <div class="item"><div class="k">Перенос</div><div class="v">Возможен при уведомлении за 10 дней и наличии свободных дат</div></div>
+    <div class="item"><div class="k">Отдельно</div><div class="v">Консультация по статусу пребывания для вас и вашей команды</div></div>
+  </div>
+<div class="between">
     <h3>Между уровнями</h3>
     <p>Промежуточные варианты собираем лично. Если нужна часть второго уровня, но не весь, просто скажите что именно, и мы посчитаем под вас.</p>
   </div>
 </section>
 
 <section class="page">
-  <h2>Как это устроено</h2>
-  <p class="soft" style="margin-top:24px">У нас есть индонезийская компания PT RAJA, через неё можно провести договор, счета и приём оплат, чтобы у вас на руках остались нормальные документы, а не переписка. Это возможность, а не обязательное условие. Если вам удобнее иначе, работаем иначе.</p>
+  <h2>Как мы работаем</h2>
+  <p class="soft" style="margin-top:24px">Четыре шага от первого сообщения до вашего отъезда, без промежуточных согласований и лишних созвонов.</p>
 
-  <div class="items terms">
-    <div class="item"><div class="k">Договор</div><div class="v">Фиксирует объём работ и сроки до начала. Через компанию по вашему выбору, можно и без неё</div></div>
-    <div class="item"><div class="k">Депозит</div><div class="v">30 процентов при подтверждении дат. Если оплаты по бронированиям ещё не ушли, депозит возвращаем полностью</div></div>
-    <div class="item"><div class="k">Отмена</div><div class="v">Более 14 дней возвращаем остаток полностью, от 7 до 14 дней половину, менее 7 дней средства удерживаются</div></div>
-    <div class="item"><div class="k">Гибкость</div><div class="v">Условия обсуждаемы. Если ваша ситуация не укладывается в эту схему, скажите, и мы найдём рабочий вариант</div></div>
-    <div class="item"><div class="k">Перенос</div><div class="v">Возможен при уведомлении за 10 дней и наличии свободных дат</div></div>
-    <div class="item"><div class="k">Отдельно</div><div class="v">Консультация по статусу пребывания для вас и вашей команды</div></div>
+  <div class="items">
+    <div class="item"><div class="k">Шаг 1 · Запрос</div><div class="v">Вы пишете даты, размер группы и то, что уже собрано с вашей стороны</div></div>
+    <div class="item"><div class="k">Шаг 2 · Смета</div><div class="v">Возвращаемся с составом услуг и стоимостью. Если чего-то не хватает или что-то лишнее, правим до подписания</div></div>
+    <div class="item"><div class="k">Шаг 3 · Договор</div><div class="v">Фиксируем объём и сроки, депозит подтверждает даты. С этого момента бронируем локации и подрядчиков</div></div>
+    <div class="item"><div class="k">Шаг 4 · Заезд</div><div class="v">Один человек с нашей стороны на связи весь период. Вы ведёте группу, остальное на нас</div></div>
   </div>
 </section>
 
@@ -278,7 +296,7 @@ p + p{margin-top:16px}
     <div class="person">
       <h3>Нади</h3>
       <div class="role">Тело и церемонии</div>
-      <p>Мастер соматики, парений и глубокого массажа. Работает молча и держит поле, в котором можно отпустить контроль. Ведёт всё, что касается тела и церемоний.</p>
+      <p>Мастер соматики, парений и глубокого массажа. Работает молча, без необходимости объяснять своё состояние или поддерживать разговор. Ведёт всё, что касается тела и ритуалов.</p>
     </div>
     <div class="person">
       <h3>Дре</h3>
@@ -290,16 +308,14 @@ p + p{margin-top:16px}
 
 <section class="page contact">
   <h2>Дальше просто разговор</h2>
-  <p class="soft">Напишите даты, размер группы и что уже собрано с вашей стороны. Мы скажем, что можем взять на себя и сколько это будет стоить. Без анкет и звонков по расписанию.</p>
+  <p class="soft">Напишите в свободной форме: даты, количество участников и организаторов, что уже забронировано и что нужно взять на себя. Этого хватит, чтобы вернуться к вам с составом и стоимостью.</p>
 
   <div class="ctas">
     <a class="cta" href="https://wa.me/6281339630129">Написать в WhatsApp</a>
-    <a class="cta" href="https://t.me/+6281339630129">Написать в Telegram</a>
   </div>
 
   <div class="line">
     <a href="https://wa.me/6281339630129">WhatsApp +62 813 3963 0129</a>
-    <a href="https://t.me/+6281339630129">Telegram +62 813 3963 0129</a>
     <a href="mailto:hello@i11ume.com">hello@i11ume.com</a>
     <span>PT RAJA · Бали, Индонезия</span>
   </div>
