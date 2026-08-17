@@ -1,439 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>i11ume | System Reset</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --obsidian: #0B0C10;
-            --indigo: #1A1A3A;
-            --gold: #D4AF37;
-            --text-light: #F2F2F2;
-            --text-muted: #888890;
-            --bg-card: rgba(26, 26, 58, 0.4);
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i11ume · Практики восстановления на Бали</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Space+Grotesk:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A1420; --surf:#0E1A2A; --line:#1A2A3D;
+  --cream:#EAE2D6; --sand:#E6DFD3; --ice:#7CF5FF;
+  --soft:rgba(234,226,214,.60);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;
+  font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+::selection{background:var(--ice);color:var(--bg)}
+::-webkit-scrollbar{width:7px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--ice)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ice);outline-offset:3px;border-radius:2px}
 
-        body {
-            background-color: var(--obsidian);
-            color: var(--text-light);
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.5;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
+.page{max-width:720px;margin:0 auto;padding:84px 40px;border-bottom:1px solid var(--line)}
+.page:last-child{border-bottom:none}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;letter-spacing:-.01em;color:var(--sand)}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.14}
+h2{font-size:clamp(25px,4.4vw,35px);line-height:1.22}
+h3{font-size:20px;line-height:1.3}
+p{font-size:16px;max-width:58ch}
+p + p{margin-top:15px}
+.soft{color:var(--soft)}
+.util{font-family:'Space Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;font-size:10.5px}
 
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: linear-gradient(160deg, var(--obsidian) 0%, var(--indigo) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            position: relative;
-        }
+.brand{display:flex;align-items:center;gap:11px}
+.brand .wm{font-family:'Fraunces',serif;font-size:15px;letter-spacing:.34em;color:var(--cream);padding-left:2px}
+.cover{padding-top:104px;padding-bottom:104px}
+.cover h1{margin:52px 0 28px}
+.cover .accent{color:var(--ice)}
+.cover .meta{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--soft);display:flex;gap:24px;flex-wrap:wrap}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
+/* ПРАКТИКА */
+.practice{background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:34px 32px;margin-top:30px}
+.practice:first-of-type{margin-top:34px}
+.practice .kind{margin-top:11px;color:var(--soft);font-family:'Space Grotesk',sans-serif;
+  letter-spacing:.18em;text-transform:uppercase;font-size:10.5px}
+.practice .body{margin-top:20px}
+.practice .body p{font-size:15.5px;color:var(--soft)}
+.gives{margin-top:26px;border-top:1px solid var(--line)}
+.g{padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:baseline}
+.g:last-child{border-bottom:none}
+.g .k{flex:0 0 140px;font-family:'Space Grotesk',sans-serif;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ice);line-height:1.7}
+.g .v{font-size:15px;flex:1}
+.meta-row{margin-top:26px;padding-top:18px;border-top:1px solid var(--sand);
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.amt{font-family:'Fraunces',serif;font-size:23px;color:var(--sand);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt.ph{font-size:15px;border:1px dashed var(--soft);border-radius:2px;padding:2px 10px;color:var(--soft)}
+.meta-row .note{font-family:'Space Grotesk',sans-serif;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
 
-        .logo {
-            font-family: 'Raleway', sans-serif;
-            font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 5px;
-            text-transform: lowercase;
-            color: var(--text-light);
-        }
+/* РАСКРЫВАЮЩИЙСЯ БЛОК */
+details{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
+summary{cursor:pointer;list-style:none;font-family:'Space Grotesk',sans-serif;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);
+  display:flex;align-items:center;gap:9px;transition:opacity .25s ease}
+summary::-webkit-details-marker{display:none}
+summary:hover{opacity:.7}
+summary .sign{font-size:14px;line-height:1}
+details[open] summary .sign{transform:rotate(45deg)}
+summary .sign{display:inline-block;transition:transform .3s ease}
+details .inner{margin-top:20px}
+details .inner h3{font-size:16px;margin-bottom:7px;color:var(--cream)}
+details .inner .part{padding:14px 0;border-bottom:1px solid var(--line)}
+details .inner .part:last-child{border-bottom:none}
+details .inner p{font-size:14.5px;color:var(--soft)}
 
-        .logo span {
-            color: var(--gold);
-        }
+/* СОЧЕТАНИЯ */
+.combo{padding:22px 0;border-bottom:1px solid var(--line)}
+.combo:last-child{border-bottom:none}
+.combo h3{font-size:19px;margin-bottom:7px}
+.combo .made{color:var(--ice);font-family:'Space Grotesk',sans-serif;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:11px}
+.combo p{font-size:15px;color:var(--soft)}
 
-        .lang-switch {
-            display: flex;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
+/* ФОРМАТ */
+.rows{margin-top:26px;border-top:1px solid var(--line)}
+.rows .g .k{color:var(--sand)}
 
-        .lang-switch span {
-            transition: color 0.3s ease;
-        }
+/* КОНТАКТ */
+.ctas{display:flex;gap:13px;flex-wrap:wrap;margin-top:28px}
+.cta{display:inline-block;padding:15px 30px;border:1px solid var(--line);border-radius:100px;
+  color:var(--cream);font-family:'Space Grotesk',sans-serif;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;transition:border-color .3s ease,color .3s ease}
+.cta:hover{border-color:var(--ice);color:var(--ice)}
+.contact .line{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:'Space Grotesk',sans-serif;font-size:11.5px;letter-spacing:.08em;color:var(--soft)}
+.contact .line a,.contact .line span{display:block;margin-bottom:8px;
+  font-variant-numeric:tabular-nums;transition:color .25s ease}
+.contact .line a:hover{color:var(--ice)}
 
-        .lang-switch span.active {
-            color: var(--gold);
-        }
-
-        .image-wrapper {
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            display: flex;
-            background-color: #000;
-        }
-
-        .image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
-        .content h1 {
-            font-family: 'Raleway', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 6px;
-        }
-
-        .content h2 {
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Стили для блока описания (бывший хук) с курсивом и золотой полосой */
-        .content .hook {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-weight: 300;
-            text-align: justify;
-            border-left: 2px solid var(--gold);
-            padding-left: 14px;
-            font-style: italic;
-        }
-
-        .content p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            font-weight: 300;
-            text-align: justify;
-        }
-
-        .features {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .features li {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            padding-left: 14px;
-            position: relative;
-            font-weight: 300;
-            line-height: 1.5;
-        }
-
-        .features li::before {
-            content: '•';
-            color: var(--gold);
-            position: absolute;
-            left: 0;
-            font-size: 18px;
-            top: -4px;
-        }
-
-        .features li strong {
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .toggle-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: none;
-            border: 1px dashed rgba(212, 175, 55, 0.5);
-            color: var(--gold);
-            padding: 12px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .expandable-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .expandable-content.expanded {
-            max-height: 1000px; 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 16px;
-            margin-top: -10px;
-        }
-
-        .expandable-content p {
-            margin-bottom: 12px;
-        }
-        
-        .expandable-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .meta-info {
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 24px;
-        }
-
-        .meta-info .meta-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .meta-info .meta-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .meta-info .meta-label {
-            color: var(--text-muted);
-        }
-
-        .meta-info .meta-value {
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .meta-info .highlight-price {
-            color: var(--gold);
-        }
-
-        .meta-info .discount {
-            font-size: 11px;
-            color: #4CAF50;
-            display: block;
-            text-align: right;
-            margin-top: 2px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-primary {
-            flex: 1;
-            padding: 14px 10px;
-            background-color: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-align: center;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary:active {
-            background-color: var(--gold);
-            color: var(--obsidian);
-            transform: scale(0.98);
-        }
-
-        .lang-ru, .lang-en {
-            display: none;
-        }
-
-        .lang-en.active, .lang-ru.active {
-            display: block;
-        }
-        
-        span.lang-en.active, span.lang-ru.active { display: inline; }
-        div.meta-row.lang-en.active, div.meta-row.lang-ru.active { display: flex; }
-    </style>
+@media (max-width:640px){
+  .page{padding:58px 22px}
+  .practice{padding:26px 20px}
+  .g{flex-direction:column;gap:5px}
+  .g .k{flex:none}
+  .cover .meta{gap:7px;flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="header">
-        <div class="logo">i11<span>ume</span></div>
-        <div class="lang-switch">
-            <span id="btn-en" class="active" onclick="switchLang('en')">EN</span>
-            <span>/</span>
-            <span id="btn-ru" onclick="switchLang('ru')">RU</span>
-        </div>
+<section class="page cover">
+  <div class="brand">
+    <svg width="34" height="23" viewBox="0 0 36 24" fill="none" aria-hidden="true">
+      <path d="M1.5 12 C8 3.5, 28 3.5, 34.5 12 C28 20.5, 8 20.5, 1.5 12 Z" stroke="#EAE2D6" stroke-width="1" stroke-linejoin="round"/>
+      <circle cx="18" cy="12" r="4.6" stroke="#EAE2D6" stroke-width=".8" opacity=".55"/>
+      <circle cx="18" cy="12" r="2" fill="#7CF5FF"/>
+    </svg>
+    <span class="wm">i11ume</span>
+  </div>
+
+  <h1>Тело помнит всё,<br><span class="accent">что вы успели за год</span></h1>
+  <p class="soft" style="font-size:18px">Четыре практики восстановления на Бали. Приезжаем к вам, работаем руками, паром, водой и огнём. Без лекций и без необходимости о себе рассказывать.</p>
+
+  <div class="meta util">
+    <span>Убуд и окрестности</span>
+    <span>Выезд к вам</span>
+    <span>PT RAJA</span>
+  </div>
+</section>
+
+<section class="page">
+  <h2>Кому это нужно</h2>
+  <p class="soft" style="margin-top:22px">Тем, кто привёз группу и не успевает выдохнуть. Тем, кто приехал компанией и хочет один день провести иначе, чем в кафе и на байках. И тем, кто просто устал так, что уже не помнит, каким тело бывает лёгким.</p>
+  <p class="soft">Можно взять одну практику, можно собрать день. Мы приезжаем сами, вам не нужно никуда добираться и ничего готовить.</p>
+</section>
+
+<section class="page">
+  <h2>Практики</h2>
+
+  <div class="practice">
+    <h3>Банная перезагрузка</h3>
+    <div class="kind">Пар, веники, контраст · сигнатура</div>
+    <div class="body">
+      <p>Тело в жаре перестаёт держать оборону. Через полчаса вы уже не думаете о делах, потому что думать нечем, всё внимание уходит в кожу и дыхание. Веники, холод, снова жар, и в какой-то момент внутри становится тихо.</p>
+      <p>Это не спа-процедура для фотографий. Это довольно плотная работа, после которой хочется спать и ничего не решать.</p>
+    </div>
+    <div class="gives">
+      <div class="g"><div class="k">Забирает</div><div class="v">Спазм в плечах и шее, ощущение сжатости, бессонницу первых дней на новом месте</div></div>
+      <div class="g"><div class="k">Оставляет</div><div class="v">Тишину в голове и тяжесть в теле, которая к утру превращается в лёгкость</div></div>
+    </div>
+    <div class="meta-row">
+      <span class="amt ph">цена уточняется</span>
+      <span class="note">длительность уточняется</span>
+    </div>
+  </div>
+
+  <div class="practice">
+    <h3>Глубокий йога-массаж</h3>
+    <div class="kind">Кам Ти Чоу, школа «Ладонь лотоса» · сигнатура</div>
+    <div class="body">
+      <p>Обычный массаж приятен, но эффект от него сгорает за пару дней. Здесь работа идёт с фасциями, той сплошной сетью, что окутывает всё тело и держит его форму. Ткань меняется медленнее мышцы, зато и держится дольше.</p>
+      <p>Техника пришла из Северного Таиланда и построена на принципах йоги: вас растягивают, разворачивают и продавливают, пока тело не вспомнит, где у него было место.</p>
+    </div>
+    <div class="gives">
+      <div class="g"><div class="k">Забирает</div><div class="v">Боль от ноутбука и телефона, деревянность в спине и ногах, эмоциональные качели</div></div>
+      <div class="g"><div class="k">Оставляет</div><div class="v">Подвижность и лёгкость, которая держится неделями, а не пару дней</div></div>
+      <div class="g"><div class="k">Цикл</div><div class="v">Одна сессия снимает острое. Три-пять возвращают спине и ногам полный ход</div></div>
     </div>
 
-    <div class="image-wrapper">
-        <img src="massage.jpg" alt="Royal Thai Massage by Nadi">
+    <details>
+      <summary><span class="sign">+</span> Почему это работает дольше обычного массажа</summary>
+      <div class="inner">
+        <div class="part">
+          <h3>Растяжка целыми цепями</h3>
+          <p>Фасция идёт по телу непрерывно, от стоп до затылка. В пассивных асанах вытягивается вся цепь сразу, поэтому отпускает не один узел, а весь этаж.</p>
+        </div>
+        <div class="part">
+          <h3>Давление меняет саму ткань</h3>
+          <p>Под весом ладони, локтя или стопы фасция становится текучее и напитаннее. Уходят склейки, те самые места, из-за которых тело кажется чужим и негнущимся.</p>
+        </div>
+        <div class="part">
+          <h3>Линии, а не точки</h3>
+          <p>Тайские линии Сен почти совпадают с тем, что в анатомии называют мышечными поездами. Работа идёт по длинным цепочкам, по которым напряжение и передаётся от стопы к шее.</p>
+        </div>
+        <div class="part">
+          <h3>Медленный дофамин</h3>
+          <p>Спа даёт вспышку, которая сгорает в первый рабочий день. Здесь меняется структура ткани, и потому лёгкость остаётся с вами надолго.</p>
+        </div>
+      </div>
+    </details>
+
+    <div class="meta-row">
+      <span class="amt">1 000 000 IDR</span>
+      <span class="note">1,5 часа · с выездом к вам</span>
     </div>
+  </div>
 
-    <div class="content">
-        <h1 class="lang-en active">RESTORING THE PRIME CONDITION</h1>
-        <h1 class="lang-ru">ВОЗВРАЩАЕМ ОПТИМАЛЬНЫЙ ТОНУС ТЕЛА</h1>
-        
-        <h2 class="lang-en active">VIA ROYAL YOGA MASSAGE.</h2>
-        <h2 class="lang-ru">ЧЕРЕЗ КОРОЛЕВСКИЙ ЙОГА-МАССАЖ</h2>
-
-        <p class="hook lang-en active">In the continuous flow of modern life, the body inevitably accumulates tension, becoming a hostage to the digital rhythm. Ordinary massage merely masks tension temporarily, triggering a quick dopamine spike that instantly burns out in your work rhythm. Deep fascial work and targeted stretching act as a long-term investment, restoring your system's resources and natural lightness.</p>
-        <p class="hook lang-ru">В стремительном течении жизни  тело неизбежно накапливает напряжение, становясь заложником цифрового ритма. Обычный массаж лишь на время маскирует напряжение, создавая вспышку быстрого дофамина, который мгновенно сгорает в вашем рабочем ритме. Глубокое воздействие на фасции и растяжка работают на перспективу, возвращая организму ресурс и легкость.</p>
-        
-        <p class="lang-en active">At i11ume, we apply the Kam Thye Chow technique of the Lotus Palm school, which merges the centuries-old wisdom of Northern Thailand with fundamental yoga principles. This is not a relaxation massage; it is a high-precision tool designed to return your body to its physical and energetic benchmark.</p>
-        <p class="lang-ru">В i11ume мы используем технику Кам Ти Чоу школы «Ладонь лотоса», которая объединяет в себе многовековую мудрость Северного Таиланда и фундаментальные принципы йоги. Это не просто массаж для релаксации, а высокоточный инструмент возвращения вашего тела в состояние физического и энергетического эталона.</p>
-        
-        <ul class="features lang-en active">
-            <li><strong>Structural Restoration.</strong> Deep work with fascia and ligaments rapidly returns muscles to their original anatomical alignment.</li>
-            <li><strong>Pain Release.</strong> A single session eliminates acute tension from prolonged laptop and phone use. A cycle of 3 to 5 sessions fully restores back and leg mobility.</li>
-            <li><strong>Energy Flow.</strong> By engaging the physical framework, we stimulate the flow of vital energy (Chi) and restore the density of your etheric body.</li>
-            <li><strong>Emotional Grounding.</strong> The technique effectively halts emotional swings and sleep disorders, returning mental clarity and psycho-emotional stability.</li>
-        </ul>
-        <ul class="features lang-ru">
-            <li><strong>Восстановление структуры.</strong> Глубокая работа с фасциями и связками позволяет за кратчайшие сроки вернуть мышцы в их изначальное положение.</li>
-            <li><strong>Освобождение от боли.</strong> Уже за одну сессию уходит острое напряжение, вызванное работой за ноутбуком и телефоном, а цикл от трех до пяти сессий полностью восстанавливает подвижность спины и ног.</li>
-            <li><strong>Энергетический поток.</strong> Через воздействие на физическую оболочку мы пробуждаем поток энергии чи и восстанавливаем плотность вашего эфирного тела.</li>
-            <li><strong>Эмоциональная опора.</strong> Техника эффективно купирует эмоциональные качели и проблемы со сном, возвращая вам ясность ума и устойчивое психоэмоциональное состояние.</li>
-        </ul>
-
-        <button class="toggle-btn" id="toggleDetailsBtn" onclick="toggleDetails()">
-            <span class="lang-en active">View Biomechanics +</span>
-            <span class="lang-ru">Подробнее о биомеханике +</span>
-        </button>
-
-        <div class="expandable-content" id="detailsContent">
-            <div class="lang-en active">
-                <p><strong>Deep Stretching.</strong> Fascia envelops the entire body as a single continuous network, adapting to changes much slower than muscles. During passive yoga asanas, these fascial chains are stretched entirely, releasing tension across the entire structural framework.</p>
-                <p><strong>Compression.</strong> Pressure applied with palms, elbows, or feet alters the viscosity of the fascia. Under compression, it becomes more fluid and hydrated, eliminating the "stuck" zones that make your body feel wooden.</p>
-                <p><strong>Myofascial Meridians.</strong> The Sen lines perfectly align with Thomas Myers' Anatomy Trains. By working these lines, we address the long tissue chains that transmit tension from the feet to the head.</p>
-                <p><strong>"Long Dopamine" Effect.</strong> You are changing the actual tissue structure and restoring its elasticity, rather than just temporarily relaxing muscle fibers. This is why the lightness lasts significantly longer than a standard spa.</p>
-            </div>
-            <div class="lang-ru">
-                <p><strong>Глубокая растяжка.</strong> Фасция окутывает все тело как единая сеть, и она гораздо медленнее адаптируется к изменениям, чем мышцы. Когда вы находитесь в асанах пассивной йоги, эти фасциальные цепи вытягиваются целиком. Это снимает напряжение не только в конкретном узле, но и во всей структуре тела.</p>
-                <p><strong>Компрессия.</strong> Надавливания ладонями, локтями или стопами воздействуют на вязкость фасции. Под давлением она становится более текучей и увлажненной, что убирает те самые склейки и застойные зоны, которые делают тело деревянным.</p>
-                <p><strong>Работа с миофасциальными линиями.</strong> Линии Сен практически полностью совпадают с анатомическими миофасциавыми поездами Томаса Майерса. Прорабатывая эти линии, мы воздействуем на длинные цепочки тканей, по которым напряжение передается от стоп к шее и голове.</p>
-                <p><strong>Эффект длинного дофамина.</strong> Вы меняете саму структуру ткани и возвращаете ей эластичность, а не просто временно расслабляете мышечное волно. Именно поэтому после качественного сеанса эффект легкости сохраняется намного дольше.</p>
-            </div>
-        </div>
-
-        <p class="lang-en active">This immersion vector is a mandatory protocol for those who actively shape their reality and demand peak performance in any environment.</p>
-        <p class="lang-ru">Этот vector погружения является обязательным протоколом для тех, кто привык управлять своей реальностью и сохранять эталонную форму в любых условиях.</p>
-        
-        <div class="meta-info">
-            <div class="meta-row">
-                <span class="meta-label lang-en active">Duration & Format</span>
-                <span class="meta-label lang-ru">Продолжительность</span>
-                <span class="meta-value lang-en active">1.5 hours (Outcall)</span>
-                <span class="meta-value lang-ru">1.5 часа (Выезд на дом)</span>
-            </div>
-            <div class="meta-row">
-                <span class="meta-label lang-en active">Session Investment</span>
-                <span class="meta-label lang-ru">Стоимость сессии</span>
-                <span class="meta-value highlight-price">1,000,000 IDR</span>
-            </div>
-            <span class="discount lang-en active">10% discount applied via app</span>
-            <span class="discount lang-ru">Скидка 10% через приложение</span>
-        </div>
-        
-        <div class="btn-group">
-            <a href="#" class="btn-primary" id="bookTG">Telegram</a>
-            <a href="#" class="btn-primary" id="bookWA">WhatsApp</a>
-        </div>
+  <div class="practice">
+    <h3>Мелукат</h3>
+    <div class="kind">Церемония на источниках</div>
+    <div class="body">
+      <p>Балийская церемония очищения в святой воде. Холодная вода, поток на затылок и плечи, дыхание, которое сбивается и выравнивается. Тело реагирует раньше, чем голова успевает подобрать этому объяснение.</p>
+      <p>Идём в место, где нет очереди из туристов. Всё, что нужно, приносим с собой, от вас требуется только приехать.</p>
     </div>
-</div>
+    <div class="gives">
+      <div class="g"><div class="k">Забирает</div><div class="v">Ощущение, что вы переполнены чужим и не можете это стряхнуть</div></div>
+      <div class="g"><div class="k">Оставляет</div><div class="v">Отчётливое чувство разделения: где заканчивается ваше и начинается не ваше</div></div>
+    </div>
+    <div class="meta-row">
+      <span class="amt ph">цена уточняется</span>
+      <span class="note">длительность уточняется</span>
+    </div>
+  </div>
 
-<script>
-    let tg = window.Telegram.WebApp;
-    tg.expand();
-    tg.setHeaderColor('#0B0C10');
+  <div class="practice">
+    <h3>Хаван</h3>
+    <div class="kind">Огненный ритуал</div>
+    <div class="body">
+      <p>Древний ритуал работы с живым огнём. Вы сидите у костра, называете то, что закончилось, и отдаёте это огню. Звучит просто, работает жёстко: до костра многие впервые честно формулируют, что именно пора закрыть.</p>
+      <p>Подходит на стыке периодов. После большого проекта, после разрыва, перед переездом.</p>
+    </div>
+    <div class="gives">
+      <div class="g"><div class="k">Забирает</div><div class="v">Незакрытые циклы, которые тянутся фоном и съедают внимание</div></div>
+      <div class="g"><div class="k">Оставляет</div><div class="v">Пустое место, куда наконец помещается что-то новое</div></div>
+    </div>
+    <div class="meta-row">
+      <span class="amt ph">цена уточняется</span>
+      <span class="note">длительность уточняется</span>
+    </div>
+  </div>
+</section>
 
-    let currentLang = 'en';
+<section class="page">
+  <h2>Собранные дни</h2>
+  <p class="soft" style="margin-top:22px">Вместе практики работают иначе, чем по отдельности. Вот сочетания, которые мы проверили и предлагаем чаще всего.</p>
 
-    function switchLang(lang) {
-        if(currentLang === lang) return;
-        
-        document.querySelectorAll('.lang-' + currentLang).forEach(el => el.classList.remove('active'));
-        document.getElementById('btn-' + currentLang).classList.remove('active');
-        
-        document.querySelectorAll('.lang-' + lang).forEach(el => el.classList.add('active'));
-        document.getElementById('btn-' + lang).classList.add('active');
-        
-        currentLang = lang;
-        updateBtnText();
-    }
+  <div class="rows" style="border-top:none">
+    <div class="combo">
+      <h3>День без единой мысли</h3>
+      <div class="made">Баня и массаж</div>
+      <p>Сначала жар и контраст, потом руки. Классическое сочетание, после которого вечером вы просто выключаетесь, а наутро возвращается желание что-то делать.</p>
+    </div>
+    <div class="combo">
+      <h3>Смыть и выпарить</h3>
+      <div class="made">Мелукат и баня</div>
+      <p>Вода забирает чужое, пар добирает остальное. Берут те, кто много работает с людьми и приезжает переполненным.</p>
+    </div>
+    <div class="combo">
+      <h3>Закрыть и отпустить</h3>
+      <div class="made">Хаван и массаж</div>
+      <p>Огонь ставит точку в том, что тянулось, руки снимают то, что тело держало всё это время. Хорошо ложится в конец поездки.</p>
+    </div>
+  </div>
+</section>
 
-    function toggleDetails() {
-        let content = document.getElementById('detailsContent');
-        content.classList.toggle('expanded');
-        updateBtnText();
-    }
+<section class="page">
+  <h2>Как это устроено</h2>
 
-    function updateBtnText() {
-        let content = document.getElementById('detailsContent');
-        let btnEn = document.querySelector('#toggleDetailsBtn .lang-en');
-        let btnRu = document.querySelector('#toggleDetailsBtn .lang-ru');
-        
-        if (content.classList.contains('expanded')) {
-            btnEn.innerHTML = "Hide Biomechanics -";
-            btnRu.innerHTML = "Скрыть биомеханику -";
-        } else {
-            btnEn.innerHTML = "View Biomechanics +";
-            btnRu.innerHTML = "Подробнее о биомеханике +";
-        }
-    }
+  <div class="rows">
+    <div class="g"><div class="k">Где</div><div class="v">Приезжаем к вам, на виллу или в место, где вы остановились. Для Мелуката выезжаем к источникам</div></div>
+    <div class="g"><div class="k">Сколько человек</div><div class="v">Работаем и с одним, и с группой. Для группы согласуем порядок заранее, чтобы никто не ждал</div></div>
+    <div class="g"><div class="k">Что нужно от вас</div><div class="v">Только дата и место. Всё необходимое привозим с собой</div></div>
+    <div class="g"><div class="k">Разговоры</div><div class="v">По желанию. Можно молчать всю сессию, объяснять своё состояние не требуется</div></div>
+    <div class="g"><div class="k">Оплата</div><div class="v">Наличными на месте или переводом через PT RAJA, если нужны документы</div></div>
+    <div class="g"><div class="k">Отмена</div><div class="v">Бесплатно за сутки. Позже удерживаем половину, потому что время мастера уже забронировано</div></div>
+  </div>
+</section>
 
-    document.getElementById('bookTG').addEventListener('click', function(e) {
-        e.preventDefault();
-        tg.openTelegramLink('https://t.me/NadiPreo');
-    });
+<section class="page contact">
+  <h2>Написать нам</h2>
+  <p class="soft">Напишите, что вас беспокоит и когда вы здесь. Мы предложим, с чего начать, и скажем стоимость. Если не уверены, что выбрать, просто опишите своё состояние.</p>
 
-    document.getElementById('bookWA').addEventListener('click', function(e) {
-        e.preventDefault();
-        let textEN = "Hello, I would like to request a slot for a massage session.";
-        let textRU = "Здравствуйте, хочу запросить слот на сессию массажа.";
-        let waText = encodeURIComponent(currentLang === 'en' ? textEN : textRU);
-        tg.openLink('https://wa.me/6281339630129?text=' + waText);
-    });
-</script>
+  <div class="ctas">
+    <a class="cta" href="https://wa.me/6281339630129">WhatsApp</a>
+    <a class="cta" href="https://t.me/NadiPreo">Telegram</a>
+  </div>
+
+  <div class="line">
+    <a href="https://wa.me/6281339630129">WhatsApp +62 813 3963 0129</a>
+    <a href="https://t.me/NadiPreo">Telegram @NadiPreo</a>
+    <a href="mailto:hello@i11ume.com">hello@i11ume.com</a>
+    <span>PT RAJA · Бали, Индонезия</span>
+  </div>
+</section>
 
 </body>
 </html>
