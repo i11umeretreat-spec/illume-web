@@ -13,13 +13,18 @@
 DNS: CNAME `royalmassage` → `nadimassage.netlify.app`, Cloudflare, DNS only.
 Запись была потеряна при переезде с GoDaddy и восстановлена 17.08.2026.
 
-## Перенос на автодеплой (не сделано)
+## Автодеплой подключён
 
-1. Положить содержимое в `public/royalmassage/` этого репозитория
-2. Добавить `royalmassage.i11ume.com` как domain alias проекта `illumenew`
-3. В `netlify.toml` добавить host-редирект по образцу `deck.i11ume.com`
-4. Переключить CNAME на `illumenew.netlify.app`
-5. Удалить проект `nadimassage`
+Рабочая копия лежит в `public/royalmassage/`, деплоится вместе с основным
+проектом `illumenew` при пуше в `main`. Хост-редирект прописан в `netlify.toml`.
+
+Правки вносить в `public/royalmassage/`, эта папка (`sites/`) остаётся
+как архив первоначальной ручной выкладки.
+
+Осталось сделать руками:
+1. Добавить `royalmassage.i11ume.com` domain alias проекта `illumenew`
+2. Переключить CNAME `royalmassage` на `illumenew.netlify.app` в Cloudflare
+3. После проверки удалить проект `nadimassage`
 
 ## Зависимости
 
