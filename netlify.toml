@@ -6,7 +6,7 @@
 [functions]
   node_bundler = "esbuild"
 
-# deck.i11ume.com отдаёт презентацию, а не приложение
+# deck.i11ume.com отдаёт презентацию
 [[redirects]]
   from   = "https://deck.i11ume.com/*"
   to     = "/deck.html"
@@ -19,7 +19,7 @@
   status = 200
   force  = true
 
-# royalmassage.i11ume.com отдаёт своё приложение
+# royalmassage.i11ume.com отдаёт приложение из public/royalmassage
 [[redirects]]
   from   = "https://royalmassage.i11ume.com/*"
   to     = "/royalmassage/:splat"
@@ -32,6 +32,7 @@
   status = 200
   force  = true
 
+# всё остальное отдаёт приложение
 [[redirects]]
   from = "/*"
   to   = "/index.html"
