@@ -81,6 +81,17 @@ details .inner .part{padding:14px 0;border-bottom:1px solid var(--line)}
 details .inner .part:last-child{border-bottom:none}
 details .inner p{font-size:14.5px;color:var(--soft)}
 
+/* ТАРИФЫ */
+.tariffs{margin-top:24px;border-top:1px solid var(--line)}
+.t{padding:16px 0;border-bottom:1px solid var(--line)}
+.t:last-child{border-bottom:none}
+.t-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.t-head h3{font-size:17px;color:var(--cream)}
+.t p{font-size:14.5px;color:var(--soft);margin-top:7px}
+.badge{font-family:'Space Grotesk',sans-serif;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);border:1px solid var(--line);
+  border-radius:2px;padding:3px 9px}
+
 /* СОЧЕТАНИЯ */
 .combo{padding:22px 0;border-bottom:1px solid var(--line)}
 .combo:last-child{border-bottom:none}
@@ -88,6 +99,10 @@ details .inner p{font-size:14.5px;color:var(--soft)}
 .combo .made{color:var(--ice);font-family:'Space Grotesk',sans-serif;font-size:10.5px;
   letter-spacing:.14em;text-transform:uppercase;margin-bottom:11px}
 .combo p{font-size:15px;color:var(--soft)}
+.c-meta{margin-top:14px;display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}
+.how{margin-top:10px;font-size:13.5px;color:var(--soft);max-width:54ch}
+.c-meta .note{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft)}
 
 /* ФОРМАТ */
 .rows{margin-top:26px;border-top:1px solid var(--line)}
@@ -127,8 +142,8 @@ details .inner p{font-size:14.5px;color:var(--soft)}
     <span class="wm">i11ume</span>
   </div>
 
-  <h1>Тело помнит всё,<br><span class="accent">что вы успели за год</span></h1>
-  <p class="soft" style="font-size:18px">Четыре практики восстановления на Бали. Работаем руками, паром, водой и огнём. Без лекций и без необходимости о себе рассказывать.</p>
+  <h1>Тело помнит каждую точку напряжения за этот год.<br><span class="accent">Пора вернуть ему лёгкость</span></h1>
+  <p class="soft" style="font-size:18px">Практики и дни-маршруты на Бали. Работаем руками, паром, водой и огнём. Без лекций и без необходимости о себе рассказывать.</p>
 
   <div class="meta util">
     <span>Убуд и окрестности</span>
@@ -149,16 +164,16 @@ details .inner p{font-size:14.5px;color:var(--soft)}
     <h3>Банная перезагрузка</h3>
     <div class="kind">Пар, веники, контраст · сигнатура</div>
     <div class="body">
-      <p>Тело в жаре перестаёт держать оборону. Через полчаса вы уже не думаете о делах, потому что думать нечем, всё внимание уходит в кожу и дыхание. Веники, холод, снова жар, и в какой-то момент внутри становится тихо.</p>
-      <p>Это не спа-процедура для фотографий. Это довольно плотная работа, после которой хочется спать и ничего не решать.</p>
+      <p>Пар, веники, холод, снова пар. Ведёт пар-мастер, вам не нужно ничего решать и ни за чем следить.</p>
+      <p>Это не спа-процедура для красивых фотографий. Это плотная физическая работа, после которой хочется просто лежать и ничего не решать.</p>
     </div>
     <div class="gives">
       <div class="g"><div class="k">Забирает</div><div class="v">Спазм в плечах и шее, ощущение сжатости, бессонницу первых дней на новом месте</div></div>
       <div class="g"><div class="k">Оставляет</div><div class="v">Тишину в голове и тяжесть в теле, которая к утру превращается в лёгкость</div></div>
     </div>
     <div class="meta-row">
-      <span class="amt ph">цена уточняется</span>
-      <span class="note">Steam Club Ubud · длительность уточняется</span>
+      <span class="amt">650 000 IDR</span>
+      <span class="note">Steam Club Ubud · вход и парение с пар-мастером</span>
     </div>
   </div>
 
@@ -166,8 +181,8 @@ details .inner p{font-size:14.5px;color:var(--soft)}
     <h3>Глубокий йога-массаж</h3>
     <div class="kind">Кам Ти Чоу, школа «Ладонь лотоса» · сигнатура</div>
     <div class="body">
-      <p>Обычный массаж приятен, но эффект от него сгорает за пару дней. Здесь работа идёт с фасциями, той сплошной сетью, что окутывает всё тело и держит его форму. Ткань меняется медленнее мышцы, зато и держится дольше.</p>
-      <p>Техника пришла из Северного Таиланда и построена на принципах йоги: вас растягивают, разворачивают и продавливают, и тело само вспоминает, как ему комфортно.</p>
+      <p>Обычный массаж приятен, но эффект сгорает за пару дней. Здесь работа идёт с фасциями, сплошной сетью, которая окутывает тело и держит его форму. Ткань меняется медленнее мышцы, зато и держится дольше.</p>
+      <p>Техника пришла из Северного Таиланда и построена на принципах йоги. Вас растягивают, разворачивают и продавливают, и тело само вспоминает своё естественное положение.</p>
     </div>
     <div class="gives">
       <div class="g"><div class="k">Забирает</div><div class="v">Боль от ноутбука и телефона, деревянность в спине и ногах, эмоциональные качели</div></div>
@@ -197,66 +212,56 @@ details .inner p{font-size:14.5px;color:var(--soft)}
       </div>
     </details>
 
+    <div class="tariffs">
+      <div class="t">
+        <div class="t-head"><h3>Экспресс-активация</h3><span class="amt">600 000 IDR</span></div>
+        <p>45 минут. Плечи, спина, шея, голова, руки, стопы. Короткий комплекс, чтобы вернуть телу ход за один заход.</p>
+      </div>
+      <div class="t">
+        <div class="t-head"><h3>Глубокая проработка</h3><span class="amt">1 000 000 IDR</span></div>
+        <p>90 минут. Полная сессия декомпрессии, когда структура тела собирается заново.</p>
+      </div>
+    </div>
     <div class="meta-row">
-      <span class="amt">1 000 000 IDR</span>
-      <span class="note">1,5 часа · в Steam Club Ubud или с выездом к вам</span>
+      <span class="note">Steam Club Ubud или с выездом к вам</span>
+      <span class="badge">выезд оплачивается отдельно</span>
     </div>
   </div>
 
-  <div class="practice">
-    <h3>Мелукат</h3>
-    <div class="kind">Церемония на источниках</div>
-    <div class="body">
-      <p>Балийская церемония очищения в святой воде. Холодная вода, поток на затылок и плечи, дыхание, которое сбивается и выравнивается. Тело реагирует раньше, чем голова успевает подобрать этому объяснение.</p>
-      <p>Идём в место, где нет очереди из туристов. Всё, что нужно, приносим с собой, от вас требуется только приехать.</p>
-    </div>
-    <div class="gives">
-      <div class="g"><div class="k">Забирает</div><div class="v">Ощущение, что вы переполнены чужим и не можете это стряхнуть</div></div>
-      <div class="g"><div class="k">Оставляет</div><div class="v">Отчётливое чувство разделения: где заканчивается ваше и начинается не ваше</div></div>
-    </div>
-    <div class="meta-row">
-      <span class="amt ph">цена уточняется</span>
-      <span class="note">длительность уточняется</span>
-    </div>
-  </div>
 
-  <div class="practice">
-    <h3>Хаван</h3>
-    <div class="kind">Огненный ритуал</div>
-    <div class="body">
-      <p>Древний ритуал работы с живым огнём. Вы сидите у костра, называете то, что закончилось, и отдаёте это огню. Звучит просто, работает жёстко: до костра многие впервые честно формулируют, что именно пора закрыть.</p>
-      <p>Подходит на стыке периодов. После большого проекта, после разрыва, перед переездом.</p>
-    </div>
-    <div class="gives">
-      <div class="g"><div class="k">Забирает</div><div class="v">Незакрытые циклы, которые тянутся фоном и съедают внимание</div></div>
-      <div class="g"><div class="k">Оставляет</div><div class="v">Пустое место, куда наконец помещается что-то новое</div></div>
-    </div>
-    <div class="meta-row">
-      <span class="amt ph">цена уточняется</span>
-      <span class="note">длительность уточняется</span>
-    </div>
-  </div>
 </section>
 
 <section class="page">
   <h2>Собранные дни</h2>
-  <p class="soft" style="margin-top:22px">Вместе практики работают иначе, чем по отдельности. Вот сочетания, которые мы проверили и предлагаем чаще всего.</p>
+  <p class="soft" style="margin-top:22px">Четыре маршрута на день. Один держится на теле, три уводят с виллы на остров. Дорога, входные и подношения на нас.</p>
 
   <div class="rows" style="border-top:none">
     <div class="combo">
       <h3>День без единой мысли</h3>
       <div class="made">Баня и массаж</div>
-      <p>Сначала жар и контраст, потом руки. Классическое сочетание, после которого вечером вы просто выключаетесь, а наутро возвращается желание что-то делать.</p>
+      <p>Сначала пар, потом руки. К вечеру в голове становится тихо, а наутро возвращается вдохновение и желание делать.</p>
+      <div class="c-meta"><span class="amt">от 1 250 000 IDR</span><span class="note">Убуд · полдня</span></div>
+      <p class="how">Собирается из компонентов: баня 650 000 и массаж на выбор, экспресс 600 000 или глубокий 1 000 000. Транспорт отдельно.</p>
     </div>
     <div class="combo">
-      <h3>Смыть и выпарить</h3>
-      <div class="made">Мелукат и баня</div>
-      <p>Вода забирает чужое, пар добирает остальное. Берут те, кто много работает с людьми и приезжает переполненным.</p>
+      <h3>Сакральный рассвет и места силы</h3>
+      <div class="made">Рассвет · Мелукат · Гунунг Кави</div>
+      <p>Первые лучи над панорамой вулканов, омовение в святых источниках и каменные ниши Гунунг Кави, вырубленные в скале тысячу лет назад.</p>
+      <div class="c-meta"><span class="amt">3 500 000 IDR</span><span class="note">первый гость · каждый следующий 1 700 000</span></div>
+      <p class="how">Внутри: машина на весь день, все входные и подношения, проводник, организация. Проводник и большая часть расходов дня не зависят от размера группы, поэтому вместе выходит дешевле. Питание отдельно.</p>
     </div>
     <div class="combo">
-      <h3>Закрыть и отпустить</h3>
-      <div class="made">Хаван и массаж</div>
-      <p>Огонь ставит точку в том, что тянулось, руки снимают то, что тело держало всё это время. Хорошо ложится в конец поездки.</p>
+      <h3>Вода, дерево, шоколад</h3>
+      <div class="made">Рассвет · водопад · 700-летнее дерево · шоколадная фабрика</div>
+      <p>Маршрут на заземление. Рассвет, водопад, дерево, которому семьсот лет, и шоколадная фабрика в конце, где всё можно трогать и пробовать.</p>
+      <div class="c-meta"><span class="amt">3 500 000 IDR</span><span class="note">первый гость · каждый следующий 1 700 000</span></div>
+      <p class="how">Внутри: машина на весь день, все входные и подношения, проводник, организация. Проводник и большая часть расходов дня не зависят от размера группы, поэтому вместе выходит дешевле. Питание отдельно.</p>
+    </div>
+    <div class="combo">
+      <h3>Стихийное обнуление</h3>
+      <div class="made">Хаван и Мелукат</div>
+      <p>Сначала огонь, потом вода. В Хаване вы называете то, что пора закончить, и отдаёте огню. Мелукат после него смывает остальное.</p>
+      <div class="c-meta"><span class="amt ph">в процессе разработки</span><span class="note">полный день</span></div>
     </div>
   </div>
 </section>
@@ -265,9 +270,10 @@ details .inner p{font-size:14.5px;color:var(--soft)}
   <h2>Как это устроено</h2>
 
   <div class="rows">
-    <div class="g"><div class="k">Где</div><div class="v">Баня проходит в Steam Club Ubud. Массаж там же или у вас на вилле. Мелукат и Хаван на локациях, дорогу организуем</div></div>
+    <div class="g"><div class="k">Где</div><div class="v">Баня в Steam Club Ubud, массаж там же или у вас на вилле. Маршруты по острову начинаются от вашего отеля</div></div>
     <div class="g"><div class="k">Сколько человек</div><div class="v">Работаем и с одним, и с группой. Для группы согласуем порядок заранее, чтобы никто не ждал</div></div>
-    <div class="g"><div class="k">Что нужно от вас</div><div class="v">Только дата. Всё необходимое, от масел до церемониальной одежды, уже на месте</div></div>
+    <div class="g"><div class="k">Дети</div><div class="v">Ребёнок в маршруте 500 000 IDR, со своим местом в машине и подношениями</div></div>
+    <div class="g"><div class="k">Что входит</div><div class="v">В маршруты входят трансфер на весь день, входные билеты, подношения и проводник. Питание и личные расходы отдельно</div></div>
     <div class="g"><div class="k">Разговоры</div><div class="v">По желанию. Можно молчать всю сессию, объяснять своё состояние не требуется</div></div>
     <div class="g"><div class="k">Оплата</div><div class="v">Наличными на месте или переводом через PT RAJA, если нужны документы</div></div>
     <div class="g"><div class="k">Отмена</div><div class="v">Бесплатно за сутки. Позже удерживаем половину, потому что время мастера уже забронировано</div></div>

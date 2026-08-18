@@ -21,4 +21,4 @@ DNS: CNAME `reset` → `illumenew.netlify.app`, Cloudflare, DNS only.
 ## Зависимости
 
 Шрифты Fraunces, Space Grotesk и Inter подключаются с Google Fonts.
-Локальный ресурс один: `massage.jpg`, 1,8 МБ, при случае стоит пережать.
+Локальных ресурсов нет, страница полностью текстовая.
