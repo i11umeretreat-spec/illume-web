@@ -127,6 +127,32 @@ details .inner p{font-size:14.5px;color:var(--soft)}
   .g .k{flex:none}
   .cover .meta{gap:7px;flex-direction:column}
 }
+@media print{
+  @page{size:A4 portrait;margin:0}
+  html,body{background:#0A1420!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always;break-after:page;border-bottom:none;padding:42px 52px;max-width:none}
+  .page:last-child{page-break-after:auto}
+  .cover{padding-top:56px;padding-bottom:56px}
+  .practice{padding:22px 22px;margin-top:16px;break-inside:avoid}
+  .practice .body p{font-size:14px}
+  .g .v{font-size:13.5px}
+  h3{font-size:18px}
+  .g{padding:9px 0}
+  .gives{margin-top:18px}
+  .meta-row{margin-top:18px;padding-top:14px}
+  .combo{padding:10px 0;break-inside:avoid}
+  .combo:has(.pb){break-before:page;padding-top:42px}
+  .combo p{font-size:13.5px}
+  .combo h3{font-size:17px}
+  .c-meta{margin-top:8px}
+  .c-meta .amt{font-size:19px}
+  .how{margin-top:6px;font-size:12px;max-width:60ch}
+  details{display:none}
+  .tariffs{margin-top:18px}
+  .t{padding:12px 0}
+  .ctas{display:none}
+  h2{font-size:27px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -145,16 +171,12 @@ details .inner p{font-size:14.5px;color:var(--soft)}
   <h1>Тело помнит каждую точку напряжения за этот год.<br><span class="accent">Пора вернуть ему лёгкость</span></h1>
   <p class="soft" style="font-size:18px">Практики и дни-маршруты на Бали. Работаем руками, паром, водой и огнём. Без лекций и без необходимости о себе рассказывать.</p>
 
+  <p class="soft" style="margin-top:26px">Тем, кто привёз группу и не успевает выдохнуть. Тем, кто приехал компанией и хочет один день провести иначе, чем в кафе и на байках. И тем, кто просто устал так, что уже не помнит, каким тело бывает лёгким.</p>
+
   <div class="meta util">
     <span>Убуд и окрестности</span>
     <span>PT RAJA</span>
   </div>
-</section>
-
-<section class="page">
-  <h2>Кому это нужно</h2>
-  <p class="soft" style="margin-top:22px">Тем, кто привёз группу и не успевает выдохнуть. Тем, кто приехал компанией и хочет один день провести иначе, чем в кафе и на байках. И тем, кто просто устал так, что уже не помнит, каким тело бывает лёгким.</p>
-  <p class="soft">Можно взять одну практику, можно собрать день. Всё необходимое уже готово, от вас только дата.</p>
 </section>
 
 <section class="page">
@@ -251,7 +273,7 @@ details .inner p{font-size:14.5px;color:var(--soft)}
       <p class="how">Внутри: машина на весь день, все входные и подношения, проводник, организация. Проводник и большая часть расходов дня не зависят от размера группы, поэтому вместе выходит дешевле. Питание отдельно.</p>
     </div>
     <div class="combo">
-      <h3>Вода, дерево, шоколад</h3>
+      <h3 class="pb">Вода, дерево, шоколад</h3>
       <div class="made">Рассвет · водопад · 700-летнее дерево · шоколадная фабрика</div>
       <p>Маршрут на заземление. Рассвет, водопад, дерево, которому семьсот лет, и шоколадная фабрика в конце, где всё можно трогать и пробовать.</p>
       <div class="c-meta"><span class="amt">3 500 000 IDR</span><span class="note">первый гость · каждый следующий 1 700 000</span></div>
