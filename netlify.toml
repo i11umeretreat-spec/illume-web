@@ -19,17 +19,30 @@
   status = 200
   force  = true
 
-# royalmassage.i11ume.com отдаёт приложение из public/royalmassage
+# reset.i11ume.com отдаёт страницу практик из public/reset
 [[redirects]]
-  from   = "https://royalmassage.i11ume.com/*"
-  to     = "/royalmassage/:splat"
+  from   = "https://reset.i11ume.com/*"
+  to     = "/reset/:splat"
   status = 200
   force  = true
 
 [[redirects]]
-  from   = "http://royalmassage.i11ume.com/*"
-  to     = "/royalmassage/:splat"
+  from   = "http://reset.i11ume.com/*"
+  to     = "/reset/:splat"
   status = 200
+  force  = true
+
+# старый адрес ведёт на новый, чтобы разосланные ссылки не умерли
+[[redirects]]
+  from   = "https://royalmassage.i11ume.com/*"
+  to     = "https://reset.i11ume.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://royalmassage.i11ume.com/*"
+  to     = "https://reset.i11ume.com/:splat"
+  status = 301
   force  = true
 
 # всё остальное отдаёт приложение
