@@ -251,11 +251,11 @@ test('уведомление уходит с кодом и суммой', async 
     assert.ok(sentEmails[0].html.includes('Глубокая проработка'));
 });
 
-test('срок действия — примерно полгода вперёд', async () => {
+test('срок действия — 30 дней вперёд', async () => {
     await call({ product_id: 'banya', recipient_name: 'Марина' });
     const expires = new Date(db.inserted[0].expires_at);
     const days = (expires - new Date()) / (24 * 60 * 60 * 1000);
-    assert.ok(days > 175 && days < 190, 'дней до истечения: ' + days);
+    assert.ok(days > 29.9 && days <= 30, 'дней до истечения: ' + days);
 });
 
 test('IP записывается в строку', async () => {

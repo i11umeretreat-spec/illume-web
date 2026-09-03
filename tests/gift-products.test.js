@@ -70,19 +70,20 @@ test('10 000 кодов без повторов', () => {
     assert.equal(seen.size, 10000);
 });
 
-test('срок действия — ровно шесть месяцев', () => {
+test('срок действия — ровно 30 дней', () => {
     const from = new Date('2026-09-03T10:00:00Z');
     const until = expiryFrom(from);
-    assert.equal(until.getFullYear(), 2027);
-    assert.equal(until.getMonth(), 2); // март, месяцы с нуля
+    assert.equal(until.toISOString(), '2026-10-03T10:00:00.000Z');
 });
 
-test('срок от 31 августа не уезжает мимо февраля', () => {
-    // 31 августа + 6 месяцев = 31 февраля, которого нет.
-    // Проверяем, что результат остался валидной датой, а не Invalid Date.
-    const until = expiryFrom(new Date('2026-08-31T10:00:00Z'));
-    assert.ok(!isNaN(until.getTime()));
-    assert.ok(until > new Date('2027-02-01T00:00:00Z'));
+test('срок ровный от любой даты, включая конец месяца', () => {
+    // Раньше считали месяцами и 31 августа уезжало в несуществующее 31 февраля.
+    for (const d of ['2026-08-31T10:00:00Z','2026-01-31T10:00:00Z','2028-02-29T10:00:00Z']) {
+        const from = new Date(d);
+        const until = expiryFrom(from);
+        assert.ok(!isNaN(until.getTime()), d);
+        assert.equal((until - from) / 864e5, 30, d);
+    }
 });
 
 test('cleanText режет длину', () => {

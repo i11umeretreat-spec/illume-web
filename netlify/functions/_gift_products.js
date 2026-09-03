@@ -16,7 +16,7 @@ const GIFT_PRODUCTS = {
     combo_deep:      { title: 'День без единой мысли · баня и глубокий',    amount: 1650000 },
 };
 
-const VALID_MONTHS = 6;
+const VALID_DAYS = 30;
 
 // Без 0, O, 1, I, L — чтобы код не путали при чтении вслух и в переписке.
 const CODE_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
@@ -45,10 +45,11 @@ function generateCode() {
 }
 
 function expiryFrom(date) {
+    // Дни, а не месяцы: срок ровный при любой дате выпуска и не спотыкается
+    // о разную длину месяцев (31 августа + 6 месяцев уезжало в несуществующее
+    // 31 февраля).
     const base = date ? new Date(date) : new Date();
-    const out = new Date(base);
-    out.setMonth(out.getMonth() + VALID_MONTHS);
-    return out;
+    return new Date(base.getTime() + VALID_DAYS * 24 * 60 * 60 * 1000);
 }
 
 // Поля от пользователя: режем длину и вычищаем управляющие символы,
@@ -64,7 +65,7 @@ function cleanText(value, maxLength) {
 
 export {
     GIFT_PRODUCTS,
-    VALID_MONTHS,
+    VALID_DAYS,
     CODE_ALPHABET,
     getProduct,
     generateCode,
