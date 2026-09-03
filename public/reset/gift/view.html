@@ -32,6 +32,8 @@
 
       <div class="msg" id="msg" hidden></div>
 
+      <div class="incl" id="incl"></div>
+
       <div class="code">
         <div class="cap">Код</div>
         <div class="val" id="code"></div>
@@ -51,6 +53,17 @@
       <a class="cta" id="shareWa" target="_blank" rel="noreferrer">Отправить в WhatsApp</a>
       <a class="cta" id="shareTg" target="_blank" rel="noreferrer">Отправить в Telegram</a>
       <button class="cta" id="print">Сохранить файлом</button>
+    </div>
+
+    <div class="ask no-print">
+      <div class="util">Записаться или спросить</div>
+      <p class="soft" style="font-size:14px;margin-top:10px">
+        Назовите код — подберём день и время. Отвечает Нади, она же и ведёт практики.
+      </p>
+      <div class="ctas" style="margin-top:18px">
+        <a class="cta primary" id="bookWa" target="_blank" rel="noreferrer">WhatsApp +62 813 3963 0129</a>
+        <a class="cta primary" id="bookTg" target="_blank" rel="noreferrer">Telegram @NadiPreo</a>
+      </div>
     </div>
 
     <div class="pay no-print" id="pay" hidden>
@@ -78,6 +91,21 @@ const AMOUNTS = {
   'Глубокая проработка · 90 минут':1000000,
   'День без единой мысли · баня и экспресс':1250000,
   'День без единой мысли · баня и глубокий':1650000,
+};
+
+// Что входит — получателю это нужнее всего: он видит сертификат первым
+// и часто вообще не знает, о чём речь.
+const DETAILS = {
+  'Банная перезагрузка':
+    'Пар, веники, холод, снова пар. Ведёт пар-мастер — вам не нужно ничего решать и ни за чем следить. Steam Club Ubud, около двух часов.',
+  'Экспресс-активация · 45 минут':
+    'Глубокий йога-массаж: плечи, спина, шея, голова, руки, стопы. Короткий комплекс, чтобы вернуть телу ход за один заход.',
+  'Глубокая проработка · 90 минут':
+    'Полная сессия глубокого йога-массажа. Работа идёт с фасциями — тканью, которая меняется медленнее мышцы, зато и держится дольше.',
+  'День без единой мысли · баня и экспресс':
+    'Сначала пар, потом руки: баня и сорокапятиминутный массаж. Полдня, к вечеру в голове становится тихо.',
+  'День без единой мысли · баня и глубокий':
+    'Баня и полная девяностоминутная сессия массажа. Полдня, самый плотный вариант из всех.',
 };
 
 const params  = new URLSearchParams(location.search);
@@ -120,6 +148,9 @@ function ruDate(iso){
   document.getElementById('code').textContent = data.code;
   document.getElementById('until').textContent = 'Действует до ' + ruDate(data.expires_at);
 
+  const incl = DETAILS[data.product_title];
+  if (incl) document.getElementById('incl').textContent = incl;
+
   if (data.message) {
     const m = document.getElementById('msg');
     m.textContent = data.message;
@@ -140,6 +171,14 @@ function ruDate(iso){
   document.getElementById('shareWa').href = 'https://wa.me/?text=' + encodeURIComponent(text + ' — ' + link);
   document.getElementById('shareTg').href = 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(text);
   document.getElementById('print').addEventListener('click', () => window.print());
+
+  // Запись по коду: в WhatsApp текст подставляется, Telegram открывает
+  // чат без предзаполнения — личные чаты там этого не поддерживают.
+  const book = encodeURIComponent(
+    'Здравствуйте! У меня сертификат ' + data.code + ' — ' + data.product_title + '. Хочу записаться.'
+  );
+  document.getElementById('bookWa').href = WA + '?text=' + book;
+  document.getElementById('bookTg').href = TG;
 
   if (isNew) {
     const amount = AMOUNTS[data.product_title];
