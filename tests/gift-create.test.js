@@ -262,3 +262,19 @@ test('IP записывается в строку', async () => {
     await call({ product_id: 'banya', recipient_name: 'Марина' }, '77.88.99.11');
     assert.equal(db.inserted[0].created_ip, '77.88.99.11');
 });
+
+test('без почтового клиента сертификат всё равно создаётся', async () => {
+    // Живой прогон поймал: new Resend(undefined) бросает ошибку в конструкторе
+    // и роняет всю функцию из-за необязательного уведомления.
+    const res = await processCreate(
+        {
+            httpMethod: 'POST',
+            headers: { 'x-forwarded-for': '5.5.5.5' },
+            body: JSON.stringify({ product_id: 'banya', recipient_name: 'Марина' }),
+        },
+        { supabase: fakeSupabase, resend: null }
+    );
+    assert.equal(res.statusCode, 200);
+    assert.equal(db.inserted.length, 1);
+    assert.equal(sentEmails.length, 0);
+});

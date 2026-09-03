@@ -148,11 +148,13 @@ export async function processCreate(event, deps) {
     }
 
     // Письмо — уведомление для Нади, а не часть выдачи сертификата.
-    // Его падение не должно отменять уже созданный сертификат.
-    try {
-        await notify(resend, code, product, recipientName);
-    } catch (err) {
-        console.error('gift notify error:', err.message);
+    // Ни его падение, ни отсутствие почтового клиента не отменяют сертификат.
+    if (resend) {
+        try {
+            await notify(resend, code, product, recipientName);
+        } catch (err) {
+            console.error('gift notify error:', err.message);
+        }
     }
 
     return jsonResponse(200, {
@@ -161,10 +163,17 @@ export async function processCreate(event, deps) {
     });
 }
 
+// Resend создаётся только при наличии ключа: его конструктор бросает ошибку
+// на пустом ключе и уронил бы всю функцию из-за необязательного уведомления.
+function makeResend() {
+    const key = process.env.RESEND_API_KEY_ILLUME;
+    return key ? new Resend(key) : null;
+}
+
 export const handler = (event) =>
     processCreate(event, {
         supabase: createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY),
-        resend: new Resend(process.env.RESEND_API_KEY_ILLUME),
+        resend: makeResend(),
     });
 
 async function notify(resend, code, product, recipientName) {
