@@ -4,7 +4,7 @@
 
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert';
-import { processCreate } from './gift-create.js';
+import { processCreate } from '../netlify/functions/gift-create.js';
 
 process.env.SUPABASE_URL = 'https://example.supabase.co';
 process.env.SUPABASE_SERVICE_KEY = 'test-key';

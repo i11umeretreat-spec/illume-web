@@ -2,8 +2,8 @@
 
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert';
-import { processView } from './gift-view.js';
-import { processAdmin } from './gift-admin.js';
+import { processView } from '../netlify/functions/gift-view.js';
+import { processAdmin } from '../netlify/functions/gift-admin.js';
 
 const TOKEN = 'test-admin-token-длинный';
 const WRONG = 'wrong-admin-token-длинн';

@@ -9,7 +9,7 @@ import {
     generateCode,
     expiryFrom,
     cleanText,
-} from './_gift_products.js';
+} from '../netlify/functions/_gift_products.js';
 
 // Ожидаемые суммы дублируются здесь намеренно: если кто-то поправит цену
 // в _gift_products.js, тест должен упасть и потребовать осознанного решения.
