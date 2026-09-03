@@ -10,8 +10,12 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { getProduct, generateCode, expiryFrom, cleanText } from './_gift_products.js';
 
-const FROM_EMAIL = 'i11ume <hello@i11ume.com>';
-const NOTIFY_EMAIL = process.env.GIFT_NOTIFY_EMAIL || 'hello@i11ume.com';
+// Домен i11ume.com в Resend пока не верифицирован, поэтому отправитель вынесен
+// в переменную: адрес меняется без правки кода, как только домен подтвердят.
+// Пока домена нет, письмо не уйдёт — на работу сертификатов это не влияет,
+// уведомление не является частью выдачи.
+const FROM_EMAIL = process.env.GIFT_FROM_EMAIL || 'i11ume <hello@i11ume.com>';
+const NOTIFY_EMAIL = process.env.GIFT_NOTIFY_EMAIL || 'i11umeretreat@gmail.com';
 
 const SITE_URL = process.env.SITE_URL || 'https://reset.i11ume.com';
 
