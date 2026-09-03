@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сертификат · i11ume</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Space+Grotesk:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./gift.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="brand">
+    <span class="wm">i11ume</span>
+    <a class="back no-print" href="/">← к практикам</a>
+  </div>
+
+  <div id="loading" class="soft">Открываем сертификат…</div>
+
+  <div class="err" id="err"></div>
+
+  <div id="card" hidden>
+    <div class="cert">
+      <div class="kicker">Подарочный сертификат</div>
+
+      <div class="who" id="who"></div>
+      <div class="what" id="what"></div>
+
+      <div class="msg" id="msg" hidden></div>
+
+      <div class="code">
+        <div class="cap">Код</div>
+        <div class="val" id="code"></div>
+        <div class="until" id="until"></div>
+      </div>
+
+      <div class="terms">
+        Действует полгода с даты выпуска. Чтобы записаться, напишите нам
+        в WhatsApp или Telegram и назовите код. Перенести время можно
+        бесплатно за сутки; позже на сертификате остаётся половина номинала.
+      </div>
+    </div>
+
+    <div class="state" id="state" hidden></div>
+
+    <div class="ctas no-print">
+      <a class="cta" id="shareWa" target="_blank" rel="noreferrer">Отправить в WhatsApp</a>
+      <a class="cta" id="shareTg" target="_blank" rel="noreferrer">Отправить в Telegram</a>
+      <button class="cta" id="print">Сохранить файлом</button>
+    </div>
+
+    <div class="pay no-print" id="pay" hidden>
+      <h3>Остался перевод</h3>
+      <p>Напишите нам — пришлём реквизиты и подтвердим сертификат. Он уже создан, код действителен.</p>
+      <div class="sum" id="sum"></div>
+      <div class="ctas">
+        <a class="cta primary" id="payWa" target="_blank" rel="noreferrer">Написать в WhatsApp</a>
+        <a class="cta primary" id="payTg" target="_blank" rel="noreferrer">Написать в Telegram</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const WA = 'https://wa.me/6281339630129';
+const TG = 'https://t.me/NadiPreo';
+
+// Суммы для блока оплаты. Он показывается только сразу после создания
+// и никогда — в пересланной ссылке, чтобы получатель не увидел цену подарка.
+const AMOUNTS = {
+  'Банная перезагрузка':850000,
+  'Экспресс-активация · 45 минут':600000,
+  'Глубокая проработка · 90 минут':1000000,
+  'День без единой мысли · баня и экспресс':1250000,
+  'День без единой мысли · баня и глубокий':1650000,
+};
+
+const params  = new URLSearchParams(location.search);
+const code    = params.get('c');
+const isNew   = params.get('new') === '1';
+
+const elLoad  = document.getElementById('loading');
+const elErr   = document.getElementById('err');
+const elCard  = document.getElementById('card');
+
+const fmtAmt = n => n.toLocaleString('ru-RU').replace(/\u00A0/g,' ') + ' IDR';
+
+function fail(text){
+  elLoad.hidden = true;
+  elErr.textContent = text;
+  elErr.classList.add('on');
+}
+
+function ruDate(iso){
+  return new Date(iso).toLocaleDateString('ru-RU', {day:'numeric', month:'long', year:'numeric'});
+}
+
+(async () => {
+  if (!code) return fail('В ссылке нет кода сертификата.');
+
+  let data;
+  try {
+    const res = await fetch('/.netlify/functions/gift-view?code=' + encodeURIComponent(code));
+    if (res.status === 404) return fail('Сертификат с таким кодом не найден. Проверьте ссылку.');
+    if (!res.ok)            return fail('Не получилось открыть сертификат. Попробуйте позже.');
+    data = await res.json();
+  } catch {
+    return fail('Нет связи с сервером. Проверьте интернет.');
+  }
+
+  document.getElementById('who').textContent =
+    data.sender_name ? 'Для ' + data.recipient_name + ' · от ' + data.sender_name
+                     : 'Для ' + data.recipient_name;
+  document.getElementById('what').textContent = data.product_title;
+  document.getElementById('code').textContent = data.code;
+  document.getElementById('until').textContent = 'Действует до ' + ruDate(data.expires_at);
+
+  if (data.message) {
+    const m = document.getElementById('msg');
+    m.textContent = data.message;
+    m.hidden = false;
+  }
+
+  // Состояние показываем только когда оно нештатное: обычный живой
+  // сертификат не должен носить на себе никаких плашек.
+  const st = document.getElementById('state');
+  if (data.status === 'redeemed')      { st.textContent = 'Сертификат уже использован.'; st.hidden = false; }
+  else if (data.status === 'void')     { st.textContent = 'Сертификат аннулирован.'; st.hidden = false; }
+  else if (data.expired)               { st.textContent = 'Срок действия истёк. Напишите нам — посмотрим, что можно сделать.'; st.hidden = false; }
+  else if (data.remaining_idr != null) { st.textContent = 'На сертификате осталось ' + fmtAmt(data.remaining_idr) + ' — можно доплатить разницу или выбрать практику дешевле.'; st.hidden = false; }
+
+  const link = location.origin + location.pathname + '?c=' + encodeURIComponent(data.code);
+  const text = 'Подарочный сертификат i11ume: ' + data.product_title;
+
+  document.getElementById('shareWa').href = 'https://wa.me/?text=' + encodeURIComponent(text + ' — ' + link);
+  document.getElementById('shareTg').href = 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(text);
+  document.getElementById('print').addEventListener('click', () => window.print());
+
+  if (isNew) {
+    const amount = AMOUNTS[data.product_title];
+    const pay = document.getElementById('pay');
+    if (amount) document.getElementById('sum').textContent = fmtAmt(amount);
+    const msg = encodeURIComponent('Здравствуйте! Создал сертификат ' + data.code + ' — ' + data.product_title + '. Готов оплатить.');
+    document.getElementById('payWa').href = WA + '?text=' + msg;
+    document.getElementById('payTg').href = TG;
+    pay.hidden = false;
+  }
+
+  elLoad.hidden = true;
+  elCard.hidden = false;
+})();
+</script>
+
+</body>
+</html>

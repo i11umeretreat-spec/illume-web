@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Подарить практику · i11ume</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Space+Grotesk:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./gift.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="brand">
+    <span class="wm">i11ume</span>
+    <a class="back" href="/">← к практикам</a>
+  </div>
+
+  <h1>Подарить практику</h1>
+  <p class="soft" style="margin-top:18px">
+    Выберите, что дарите. Сертификат появится сразу — его можно переслать
+    в мессенджере или сохранить файлом. Действует полгода.
+  </p>
+
+  <div class="choices" id="choices"></div>
+
+  <div class="fields">
+    <label>
+      <span class="lab">Кому · имя получателя</span>
+      <input id="recipient" maxlength="60" autocomplete="off" placeholder="Марина">
+    </label>
+    <label>
+      <span class="lab">От кого · необязательно</span>
+      <input id="sender" maxlength="60" autocomplete="off" placeholder="Аня">
+    </label>
+    <label>
+      <span class="lab">Несколько слов · необязательно</span>
+      <textarea id="message" maxlength="200" placeholder="С днём рождения"></textarea>
+      <div class="count"><span id="count">0</span> / 200</div>
+    </label>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <div class="ctas">
+    <button class="cta primary" id="make" disabled>Создать сертификат</button>
+  </div>
+
+  <p class="soft" style="margin-top:30px;font-size:14px">
+    Оплата переводом. После создания напишите нам в WhatsApp или Telegram —
+    пришлём реквизиты и подтвердим сертификат.
+  </p>
+
+</div>
+
+<script>
+const PRODUCTS = [
+  {id:'banya',           nm:'Банная перезагрузка',    sub:'Steam Club Ubud · пар и мастер',    amt:850000},
+  {id:'massage_express', nm:'Экспресс-активация',     sub:'45 минут',                          amt:600000},
+  {id:'massage_deep',    nm:'Глубокая проработка',    sub:'90 минут',                          amt:1000000},
+  {id:'combo_express',   nm:'День без единой мысли',  sub:'баня и экспресс · полдня',          amt:1250000},
+  {id:'combo_deep',      nm:'День без единой мысли',  sub:'баня и глубокий · полдня',          amt:1650000},
+];
+
+// Цены здесь только для показа. Настоящая сумма живёт на сервере,
+// в _gift_products.js — фронт её не присылает и присылать не может.
+const fmt = n => n.toLocaleString('ru-RU').replace(/\u00A0/g,' ') + ' IDR';
+
+let chosen = null;
+
+const elChoices  = document.getElementById('choices');
+const elMake     = document.getElementById('make');
+const elErr      = document.getElementById('err');
+const elRecip    = document.getElementById('recipient');
+const elMessage  = document.getElementById('message');
+const elCount    = document.getElementById('count');
+
+PRODUCTS.forEach(p => {
+  const b = document.createElement('button');
+  b.className = 'choice';
+  b.type = 'button';
+  b.setAttribute('aria-pressed','false');
+  b.dataset.id = p.id;
+  b.innerHTML =
+    '<span><span class="tick">•</span><span class="nm">' + p.nm + '</span>' +
+    '<span class="sub">' + p.sub + '</span></span>' +
+    '<span class="amt">' + fmt(p.amt) + '</span>';
+  b.addEventListener('click', () => {
+    chosen = p.id;
+    [...elChoices.children].forEach(c =>
+      c.setAttribute('aria-pressed', String(c.dataset.id === p.id)));
+    refresh();
+  });
+  elChoices.appendChild(b);
+});
+
+function refresh(){
+  elMake.disabled = !(chosen && elRecip.value.trim());
+}
+
+elRecip.addEventListener('input', refresh);
+elMessage.addEventListener('input', () => { elCount.textContent = elMessage.value.length; });
+
+function fail(text){
+  elErr.textContent = text;
+  elErr.classList.add('on');
+  elMake.disabled = false;
+  elMake.textContent = 'Создать сертификат';
+}
+
+elMake.addEventListener('click', async () => {
+  elErr.classList.remove('on');
+  elMake.disabled = true;
+  elMake.textContent = 'Создаём…';
+
+  try {
+    const res = await fetch('/.netlify/functions/gift-create', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        product_id: chosen,
+        recipient_name: elRecip.value,
+        sender_name: document.getElementById('sender').value,
+        message: elMessage.value,
+      }),
+    });
+
+    if (res.status === 429) return fail('Слишком много сертификатов подряд. Попробуйте через час или напишите нам.');
+    if (!res.ok)            return fail('Не получилось создать сертификат. Попробуйте ещё раз или напишите нам.');
+
+    const data = await res.json();
+    location.href = './view.html?c=' + encodeURIComponent(data.code) + '&new=1';
+  } catch {
+    fail('Нет связи с сервером. Проверьте интернет и попробуйте снова.');
+  }
+});
+</script>
+
+</body>
+</html>

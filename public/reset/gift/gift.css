@@ -1,0 +1,153 @@
+/* Стили страниц подарочных сертификатов.
+   Переменные и типографика — те же, что на reset/index.html. */
+
+:root{
+  --bg:#0A1420; --surf:#0E1A2A; --line:#1A2A3D;
+  --cream:#EAE2D6; --sand:#E6DFD3; --ice:#7CF5FF;
+  --gold:#E0A93A;
+  --soft:rgba(234,226,214,.60);
+  --dim:rgba(234,226,214,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;
+  font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+::selection{background:var(--ice);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ice);outline-offset:3px;border-radius:2px}
+
+.page{max-width:720px;margin:0 auto;padding:72px 40px}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:300;letter-spacing:-.01em;color:var(--sand)}
+h1{font-size:clamp(30px,5.4vw,44px);line-height:1.16}
+h2{font-size:clamp(22px,4vw,30px);line-height:1.24}
+h3{font-size:18px;line-height:1.3}
+p{font-size:16px;max-width:58ch}
+.soft{color:var(--soft)}
+.util{font-family:'Space Grotesk',sans-serif;letter-spacing:.2em;
+  text-transform:uppercase;font-size:10.5px;color:var(--soft)}
+
+.brand{display:flex;align-items:center;gap:11px;margin-bottom:44px}
+.brand .wm{font-family:'Fraunces',serif;font-size:15px;letter-spacing:.34em;color:var(--cream)}
+.back{font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--soft);transition:color .25s ease}
+.back:hover{color:var(--ice)}
+
+/* ── выбор практики ── */
+.choices{margin-top:34px;border-top:1px solid var(--line)}
+.choice{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  width:100%;text-align:left;padding:19px 0;border:none;border-bottom:1px solid var(--line);
+  background:none;color:var(--cream);cursor:pointer;font-family:inherit;
+  transition:padding-left .25s ease,color .25s ease}
+.choice:hover{padding-left:8px;color:var(--ice)}
+.choice[aria-pressed="true"]{padding-left:8px}
+.choice[aria-pressed="true"] .nm{color:var(--ice)}
+.choice .nm{font-family:'Fraunces',serif;font-size:19px;line-height:1.3;transition:color .25s ease}
+.choice .sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-top:6px}
+.choice .amt{font-family:'Fraunces',serif;font-size:19px;color:var(--sand);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.choice .tick{display:inline-block;width:9px;margin-right:9px;color:var(--ice);opacity:0}
+.choice[aria-pressed="true"] .tick{opacity:1}
+
+/* ── поля ── */
+.fields{margin-top:38px;display:flex;flex-direction:column;gap:22px}
+label{display:block}
+label .lab{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--soft);display:block;margin-bottom:9px}
+input,textarea{width:100%;background:var(--surf);border:1px solid var(--line);border-radius:3px;
+  padding:13px 15px;color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;
+  font-size:15.5px;transition:border-color .25s ease}
+input:focus,textarea:focus{outline:none;border-color:var(--ice)}
+textarea{resize:vertical;min-height:82px;line-height:1.6}
+.count{font-family:'Space Grotesk',sans-serif;font-size:10px;color:var(--dim);
+  text-align:right;margin-top:6px;font-variant-numeric:tabular-nums}
+
+/* ── кнопки ── */
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:15px 30px;border:1px solid var(--line);border-radius:100px;background:none;
+  color:var(--cream);font-family:'Space Grotesk',sans-serif;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+  transition:border-color .3s ease,color .3s ease,opacity .3s ease}
+.cta:hover:not(:disabled){border-color:var(--ice);color:var(--ice)}
+.cta.primary{border-color:var(--sand);color:var(--sand)}
+.cta.primary:hover:not(:disabled){border-color:var(--ice);color:var(--ice)}
+.cta:disabled{opacity:.35;cursor:default}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+
+.err{margin-top:20px;padding:14px 16px;border:1px solid rgba(224,169,58,.45);
+  border-radius:3px;color:var(--gold);font-size:14.5px;display:none}
+.err.on{display:block}
+
+/* ── сам сертификат ── */
+.cert{background:var(--surf);border:1px solid var(--line);border-radius:3px;
+  padding:44px 40px;margin-top:14px;position:relative;overflow:hidden}
+.cert::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%, rgba(124,245,255,.05), transparent 62%)}
+.cert .kicker{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--ice)}
+.cert .who{margin-top:26px;font-size:15px;color:var(--soft)}
+.cert .what{font-family:'Fraunces',serif;font-size:clamp(26px,4.6vw,36px);
+  line-height:1.16;color:var(--sand);margin-top:9px}
+.cert .msg{margin-top:26px;padding-left:17px;border-left:1px solid var(--line);
+  font-size:15.5px;color:var(--soft);font-style:italic;max-width:52ch}
+.cert .code{margin-top:34px;padding-top:22px;border-top:1px solid var(--sand)}
+.cert .code .val{font-family:'Space Grotesk',sans-serif;font-size:clamp(21px,3.6vw,27px);
+  letter-spacing:.2em;color:var(--cream);font-variant-numeric:tabular-nums}
+.cert .code .cap{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--soft);margin-bottom:9px}
+.cert .until{margin-top:16px;font-family:'Space Grotesk',sans-serif;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.cert .terms{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--dim);line-height:1.75;max-width:58ch}
+
+.state{margin-top:18px;padding:13px 16px;border-radius:3px;font-size:14.5px;
+  border:1px solid rgba(224,169,58,.45);color:var(--gold)}
+
+/* блок оплаты — только сразу после создания, не в пересланной ссылке */
+.pay{margin-top:34px;padding:26px 24px;border:1px dashed var(--line);border-radius:3px}
+.pay h3{color:var(--cream);font-size:17px}
+.pay p{font-size:14.5px;color:var(--soft);margin-top:9px}
+.pay .sum{font-family:'Fraunces',serif;font-size:25px;color:var(--sand);
+  margin-top:14px;font-variant-numeric:tabular-nums}
+
+/* ── панель ── */
+.gate{max-width:420px;margin:14vh auto;padding:0 24px}
+.row{border-bottom:1px solid var(--line);padding:19px 0}
+.row .top{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.row .cd{font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:.12em;color:var(--cream)}
+.row .info{font-size:14px;color:var(--soft);margin-top:7px}
+.row .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.row .acts button{padding:8px 15px;font-size:9.5px;letter-spacing:.14em;
+  border:1px solid var(--line);border-radius:100px;background:none;color:var(--soft);
+  font-family:'Space Grotesk',sans-serif;text-transform:uppercase;cursor:pointer;
+  transition:border-color .25s ease,color .25s ease}
+.row .acts button:hover:not(:disabled){border-color:var(--ice);color:var(--ice)}
+.row .acts button:disabled{opacity:.3;cursor:default}
+.tag{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;padding:3px 9px;border-radius:2px;border:1px solid var(--line);color:var(--soft)}
+.tag.ok{color:var(--ice);border-color:rgba(124,245,255,.4)}
+.tag.wait{color:var(--gold);border-color:rgba(224,169,58,.4)}
+.tag.done{color:var(--dim)}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:26px 0 8px}
+.filters button{padding:7px 15px;font-size:9.5px;letter-spacing:.14em;border:1px solid var(--line);
+  border-radius:100px;background:none;color:var(--soft);font-family:'Space Grotesk',sans-serif;
+  text-transform:uppercase;cursor:pointer;transition:border-color .25s ease,color .25s ease}
+.filters button[aria-pressed="true"]{border-color:var(--ice);color:var(--ice)}
+
+@media (max-width:640px){
+  .page{padding:52px 22px}
+  .cert{padding:30px 22px}
+  .choice{gap:12px}
+  .choice .amt{font-size:16px}
+  .ctas .cta{flex:1 1 100%}
+}
+
+@media print{
+  @page{size:A4 portrait;margin:0}
+  html,body{background:#0A1420!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{padding:46px 52px;max-width:none}
+  .brand{margin-bottom:34px}
+  .no-print,.ctas,.pay,.back,.state{display:none!important}
+  .cert{break-inside:avoid;padding:38px 34px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

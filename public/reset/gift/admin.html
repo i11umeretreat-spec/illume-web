@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сертификаты · панель</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Space+Grotesk:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./gift.css">
+</head>
+<body>
+
+<!-- ворота -->
+<div class="gate" id="gate">
+  <div class="brand"><span class="wm">i11ume</span></div>
+  <h2>Сертификаты</h2>
+  <div class="fields">
+    <label>
+      <span class="lab">Ключ доступа</span>
+      <input id="token" type="password" autocomplete="current-password">
+    </label>
+  </div>
+  <div class="err" id="gateErr"></div>
+  <div class="ctas"><button class="cta primary" id="enter">Войти</button></div>
+</div>
+
+<!-- панель -->
+<div class="page" id="panel" hidden>
+  <div class="brand">
+    <span class="wm">i11ume</span>
+    <a class="back" href="#" id="logout">выйти</a>
+  </div>
+
+  <h2>Сертификаты</h2>
+
+  <div class="filters">
+    <button data-f="all"      aria-pressed="true">Все</button>
+    <button data-f="unpaid"   aria-pressed="false">Ждут оплаты</button>
+    <button data-f="active"   aria-pressed="false">Активные</button>
+    <button data-f="redeemed" aria-pressed="false">Погашены</button>
+  </div>
+
+  <div class="err" id="err"></div>
+  <div id="list"></div>
+</div>
+
+<script>
+const KEY = 'i11ume_gift_token';
+let token = sessionStorage.getItem(KEY) || '';
+let filter = 'all';
+
+const gate    = document.getElementById('gate');
+const panel   = document.getElementById('panel');
+const elList  = document.getElementById('list');
+const elErr   = document.getElementById('err');
+const elGateErr = document.getElementById('gateErr');
+
+const fmtAmt = n => n.toLocaleString('ru-RU').replace(/\u00A0/g,' ');
+const ruDate = iso => new Date(iso).toLocaleDateString('ru-RU', {day:'2-digit', month:'2-digit', year:'2-digit'});
+
+async function api(method, body, query){
+  const url = '/.netlify/functions/gift-admin' + (query || '');
+  const res = await fetch(url, {
+    method,
+    headers: {'Content-Type':'application/json', 'x-admin-token': token},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  return { ok: res.ok, status: res.status, data: await res.json().catch(() => ({})) };
+}
+
+function statusTag(c){
+  if (c.status === 'redeemed') return '<span class="tag done">погашен</span>';
+  if (c.status === 'void')     return '<span class="tag done">аннулирован</span>';
+  if (c.expired)               return '<span class="tag wait">истёк</span>';
+  return '<span class="tag ok">активен</span>';
+}
+
+function paidTag(c){
+  return c.paid ? '<span class="tag ok">оплачен</span>'
+                : '<span class="tag wait">ждёт оплаты</span>';
+}
+
+function matches(c){
+  if (filter === 'unpaid')   return !c.paid && c.status === 'active';
+  if (filter === 'active')   return c.status === 'active';
+  if (filter === 'redeemed') return c.status === 'redeemed';
+  return true;
+}
+
+function render(items){
+  const rows = items.filter(matches);
+  if (!rows.length){
+    elList.innerHTML = '<p class="soft" style="margin-top:24px">Ничего нет.</p>';
+    return;
+  }
+
+  elList.innerHTML = rows.map(c => {
+    const partial = c.remaining_idr > 0 && c.remaining_idr < c.amount_idr;
+    return '<div class="row">' +
+      '<div class="top"><span class="cd">' + c.code + '</span>' +
+      '<span>' + paidTag(c) + ' ' + statusTag(c) + '</span></div>' +
+      '<div class="info">' + c.product_title + ' · ' + fmtAmt(c.amount_idr) + ' IDR' +
+        (partial ? ' · остаток ' + fmtAmt(c.remaining_idr) : '') +
+        '<br>для ' + c.recipient_name + (c.sender_name ? ' · от ' + c.sender_name : '') +
+        '<br>создан ' + ruDate(c.created_at) + ' · до ' + ruDate(c.expires_at) +
+      '</div>' +
+      '<div class="acts">' +
+        '<button data-a="pay"     data-c="' + c.code + '"' + (c.paid ? ' disabled' : '') + '>оплачен</button>' +
+        '<button data-a="redeem"  data-c="' + c.code + '"' + (c.status !== 'active' || !c.paid || c.expired ? ' disabled' : '') + '>погасить</button>' +
+        '<button data-a="partial" data-c="' + c.code + '"' + (c.status !== 'active' || c.expired ? ' disabled' : '') + '>половина</button>' +
+        '<button data-a="void"    data-c="' + c.code + '"' + (c.status === 'void' ? ' disabled' : '') + '>аннулировать</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+async function load(){
+  elErr.classList.remove('on');
+  const res = await api('GET');
+  if (res.status === 401){
+    sessionStorage.removeItem(KEY);
+    token = '';
+    panel.hidden = true;
+    gate.hidden = false;
+    elGateErr.textContent = 'Ключ не подошёл.';
+    elGateErr.classList.add('on');
+    return;
+  }
+  if (!res.ok){
+    elErr.textContent = 'Не получилось загрузить список.';
+    elErr.classList.add('on');
+    return;
+  }
+  render(res.data.items || []);
+}
+
+elList.addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-a]');
+  if (!btn) return;
+
+  const action = btn.dataset.a;
+  const code   = btn.dataset.c;
+  const words  = {pay:'отметить оплату', redeem:'погасить', partial:'оставить половину', void:'аннулировать'};
+  if (!confirm(code + ' — ' + words[action] + '?')) return;
+
+  btn.disabled = true;
+  const res = await api('POST', {code, action});
+  if (!res.ok){
+    elErr.textContent = res.data.error || 'Не получилось.';
+    elErr.classList.add('on');
+  }
+  load();
+});
+
+document.querySelectorAll('.filters button').forEach(b => {
+  b.addEventListener('click', () => {
+    filter = b.dataset.f;
+    document.querySelectorAll('.filters button').forEach(x =>
+      x.setAttribute('aria-pressed', String(x === b)));
+    load();
+  });
+});
+
+document.getElementById('enter').addEventListener('click', () => {
+  token = document.getElementById('token').value.trim();
+  if (!token) return;
+  sessionStorage.setItem(KEY, token);
+  gate.hidden = true;
+  panel.hidden = false;
+  load();
+});
+
+document.getElementById('token').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('enter').click();
+});
+
+document.getElementById('logout').addEventListener('click', (e) => {
+  e.preventDefault();
+  sessionStorage.removeItem(KEY);
+  location.reload();
+});
+
+if (token){
+  gate.hidden = true;
+  panel.hidden = false;
+  load();
+}
+</script>
+
+</body>
+</html>
